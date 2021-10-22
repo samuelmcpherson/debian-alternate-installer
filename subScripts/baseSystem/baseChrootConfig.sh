@@ -2,6 +2,8 @@
 
 chroot $TEMPMOUNT /bin/bash -c "ln -s /proc/self/mounts /etc/mtab"
 
+chroot $TEMPMOUNT /bin/bash -c "apt install -y locales"
+
 chroot $TEMPMOUNT /bin/bash -c "ln -sf /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime"
 chroot $TEMPMOUNT /bin/bash -c "hwclock --systohc"
 

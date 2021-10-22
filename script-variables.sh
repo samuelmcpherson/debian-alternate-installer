@@ -68,38 +68,11 @@ export CONFIGDIR="$TEMPMOUNT/home/$USER/$(echo $CONFIGREPO | cut -d '/' -f5 | se
 
 export ANSIBLE=
 
-export DOCKER=
-
-export DESKTOP=
-
-    export KDE=
-        
-        export PARACHUTE=
-
-        export KROHNKITE=
-    
-    export GESTURES=
-
-    export TOUCH=
-
-    export HIDPI=
-
-    export THINKPAD=
-
-        export THINKPADTRACKPOINT=
-
-    export SURFACE=
-
-    export MAC=
-
-        export FNKEYMODESWAP=
-
-        export ALTCMDKEYSWAP=
-
-    export GAMES=
+export HIDPI=
 
 export USERSHELL=/bin/zsh
 
 export ROOTSHELL=/bin/bash
 
+export DESKTOP=
 

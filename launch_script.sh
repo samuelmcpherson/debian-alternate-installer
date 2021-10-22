@@ -702,7 +702,7 @@ export LASTARGS=$CURRENTARGS
 
 # ----------------------------- chrootable from this point
 
-export CURRENTFUNC="baseSystem/packageInstallBase.sh"
+export CURRENTFUNC="baseSystem/baseChrootConfig.sh"
 export CURRENTARGS=
 
 if [ -n "$ZFS" ]
@@ -716,7 +716,7 @@ export LASTFUNC=$CURRENTFUNC
 export LASTARGS=$CURRENTARGS
 
 
-export CURRENTFUNC="baseSystem/baseChrootConfig.sh"
+export CURRENTFUNC="baseSystem/packageInstallBase.sh"
 export CURRENTARGS=
 
 if [ -n "$ZFS" ]
