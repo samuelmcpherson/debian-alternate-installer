@@ -1,22 +1,12 @@
 #!/bin/bash
 
-zfs create -o canmount=off -o mountpoint=none zroot/ROOT  
-    
-zfs create -o canmount=off -o mountpoint=none -o org.zfsbootmenu:rootprefix="root=zfs:" -o org.zfsbootmenu:commandline="ro" zroot/ROOT/debian 
+zfs create -o canmount=off -o mountpoint=none -o org.zfsbootmenu:rootprefix="root=zfs:" -o org.zfsbootmenu:commandline="ro" zroot/ROOT
 
-zfs create -o canmount=noauto -o mountpoint=/ zroot/ROOT/debian/default
+zfs create -o canmount=noauto -o mountpoint=/ zroot/ROOT/debian
 
-zfs mount zroot/ROOT/debian/default
+zfs mount zroot/ROOT/debian
 
-zpool set bootfs=zroot/ROOT/debian/default zroot
-
-zfs create -o canmount=off -o mountpoint=/var zroot/ROOT/debian/default/var
-
-zfs create -o canmount=on -o mountpoint=/var/lib zroot/ROOT/debian/default/var/lib
-
-zfs create -o canmount=on -o mountpoint=/var/cache zroot/ROOT/debian/default/var/cache
-
-zfs create -o canmount=on -o mountpoint=/root zroot/ROOT/debian/default/root
+zpool set bootfs=zroot/ROOT/debian zroot
 
 zfs create -o canmount=off -o mountpoint=none zroot/DATA
 

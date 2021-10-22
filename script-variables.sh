@@ -6,8 +6,6 @@ export SCRIPTDIR=$(pwd)
 
 export EFI=yes
 
-export BIOS=
-
 export MANUAL_LAYOUT=
 
 export ZFS=yes
