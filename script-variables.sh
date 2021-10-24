@@ -10,17 +10,19 @@ export MANUAL_LAYOUT=
 
 export ZFS=yes
 
-export MIRROR=mirror
+export MIRROR=
 
 export ZFSPART= 
 
 export EFIPART=
 
-export DISK1=/dev/disk/by-id/
+export DISK1=/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0
 
-export DISK2=/dev/disk/by-id/
+export DISK2=
 
 export TEMPMOUNT=/mnt
+
+export HOSTNAME=ansible-control
 
 export LOGDIR="/logs/$HOSTNAME"
 
@@ -35,13 +37,11 @@ export DEBIAN_FRONTEND=noninteractive
 
 ### Required vars:
 
-export HOSTNAME=thinkpad-t430-debian
-
 export TIMEOUT=20 # number of seconds before selecting the default menu option
 
-export DOMAIN=housenet.lan
+export DOMAIN=managenet.lan
 
-export NETDEVICE=enp0s25
+export NETDEVICE=ens18
 
     export DHCP=yes
 
@@ -53,7 +53,7 @@ export NETDEVICE=enp0s25
 
     export GATEWAY=192.168.10.1
 
-export RELEASE=bookworm # groovy, focal or hirsute
+export RELEASE=bullseye
 
 export LANG=en_US.UTF-8
 
@@ -66,7 +66,7 @@ export CONFIGREPO="https://github.com/samuelmcpherson/config-files.git"
 
 export CONFIGDIR="$TEMPMOUNT/home/$USER/$(echo $CONFIGREPO | cut -d '/' -f5 | sed -r 's/.{4}$//')"
 
-export ANSIBLE=
+export ANSIBLE=yes
 
 export HIDPI=
 

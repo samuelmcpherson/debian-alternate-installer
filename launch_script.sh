@@ -8,21 +8,21 @@ export ROOTPASS=$3
 
 logTrim()
 {
-sed -i '/\b\(^Get\|^Preparing\|^Setting\|^Unpacking\|^Selecting\|^Updating\|^Processing\)\b\|\(^I:\)/d' "$OUTPUTLOG-$CURRENTFUNC-log.txt"
+sed -i '/\b\(^Get\|^Preparing\|^Setting\|^Unpacking\|^Selecting\|^Updating\|^Processing\)\b\|\(^I:\)/d' "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"
 
-sed -i '/Running in chroot/d' "$OUTPUTLOG-$CURRENTFUNC-log.txt"
+sed -i '/Running in chroot/d' "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"
 
-sed -i '/(Reading database/d' "$OUTPUTLOG-$CURRENTFUNC-log.txt"
+sed -i '/(Reading database/d' "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"
 
-sed -i -e  '/^[[:blank:]]\+[[:digit:]]\+/d' "$OUTPUTLOG-$CURRENTFUNC-log.txt"
+sed -i -e  '/^[[:blank:]]\+[[:digit:]]\+/d' "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"
 }
 
 logExport()
 {
 echo "" >> "$OUTPUTLOG-log.txt"
-cat "$OUTPUTLOG-$CURRENTFUNC-log.txt" >> "$OUTPUTLOG-log.txt"
+cat "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" >> "$OUTPUTLOG-log.txt"
 echo "" >> "$OUTPUTLOG-log.txt"
-cat "$OUTPUTLOG-$CURRENTFUNC-log.txt" >> "$OUTPUTLOG-log.txt"
+cat "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" >> "$OUTPUTLOG-log.txt"
 }
 
 menuStart()
@@ -58,7 +58,7 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
   3) /bin/bash ;;
   4) break ;;
@@ -123,10 +123,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;
   6) /bin/bash ;;
   7) break ;;
@@ -192,10 +192,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;
   6) /bin/bash ;;
   7) LASTFUNC=$CURRENTFUNC; LASTARGS=$CURRENTARGS; CURRENTFUNC=$NEXTFUNC; CURRENTARGS=$NEXTARGS; break ;;
@@ -262,10 +262,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;
   6) if [ -n "$ZFS" ]; then umount -Rl $TEMPMOUNT; $SCRIPTDIR/zfs-recursive-restore.sh zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"; else echo "NOT A ZFS INSTALL"; fi ;;
   7) /bin/bash ;;
@@ -333,10 +333,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;
   6) if [ -n "$ZFS" ]; then umount -Rl $TEMPMOUNT; $SCRIPTDIR/zfs-recursive-restore.sh zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"; else echo "NOT A ZFS INSTALL"; fi ;;
   7) /bin/bash ;;
@@ -405,10 +405,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;
   6) if [ -n "$ZFS" ]; then umount -Rl $TEMPMOUNT; $SCRIPTDIR/zfs-recursive-restore.sh zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"; else echo "NOT A ZFS INSTALL"; fi ;;
   7) /bin/bash ;;
@@ -476,10 +476,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
-  2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;"$(echo $CURRENTFUNC | cut -d '/' -f2)";
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;  
   6) if [ -n "$ZFS" ]; then umount -Rl $TEMPMOUNT; $SCRIPTDIR/zfs-recursive-restore.sh zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"; else echo "NOT A ZFS INSTALL"; fi ;;
   7) /bin/bash ;;

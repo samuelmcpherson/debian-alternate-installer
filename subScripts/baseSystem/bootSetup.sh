@@ -44,7 +44,7 @@ chroot $TEMPMOUNT /bin/bash -c "touch /etc/zfsbootmenu/config.yaml"
 
 
 
-if [[ -z "$DESKTOP" ]]
+if [[ -z "$DESKTOP" ]] && [[ -n "$DESKTOP" ]]
 then
 
   chroot $TEMPMOUNT /bin/bash -c "git -C /tmp clone 'https://github.com/dracut-crypt-ssh/dracut-crypt-ssh.git'"
