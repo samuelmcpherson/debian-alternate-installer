@@ -477,7 +477,7 @@ then
 fi
 case $n in
   1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
-  2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;"$(echo $CURRENTFUNC | cut -d '/' -f2)";
+  2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
   3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
   4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;  
