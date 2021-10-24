@@ -13,13 +13,17 @@ else
     cp $CONFIGDIR/home/.conkyrc2 $TEMPMOUNT/home/$USER/
 fi
 
-mkdir -p $TEMPMOUNT/home/$USER/.config/autostart
-
-cp $CONFIGDIR/home/.config/autostart/conky* $TEMPMOUNT/home/$USER/.config/autostart
-
 chroot $TEMPMOUNT su - $USER -c "systemctl --user enable psd.service"
 
 cp $CONFIGDIR/etc/X11/xorg.conf.d/30-touchpad.conf $TEMPMOUNT/etc/X11/xorg.conf.d/30-touchpad.conf
+
+cp $CONFIGDIR/caps_remap.sh $TEMPMOUNT/usr/bin/caps_remap.sh
+
+mkdir -p $TEMPMOUNT/home/$USER/.config/autostart
+
+cp $CONFIGDIR/home/.config/autostart/conky* $TEMPMOUNT/home/$USER/.config/autostart/
+
+cp $CONFIGDIR/home/.config/autostart/caps_remap.desktop $TEMPMOUNT/home/$USER/.config/autostart/caps_remap.desktop
 
 if [[ -n "$GESTURES" ]]
 then
