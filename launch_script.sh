@@ -99,7 +99,7 @@ echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS i
 echo ""
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=4
+DEFAULT=7
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -169,7 +169,7 @@ echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS i
 echo ""
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=4
+DEFAULT=7
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -237,7 +237,7 @@ echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS i
 echo ""
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=5
+DEFAULT=8
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -309,7 +309,7 @@ echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS i
 echo ""
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=5
+DEFAULT=8
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -379,7 +379,7 @@ echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS i
 echo ""
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=6
+DEFAULT=9
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -451,7 +451,7 @@ DEFAULT=1
 echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS is the current function to run."
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=6
+DEFAULT=9
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
