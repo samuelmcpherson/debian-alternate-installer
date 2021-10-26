@@ -8,21 +8,21 @@ export ROOTPASS=$3
 
 logTrim()
 {
-sed -i '/\b\(^Get\|^Preparing\|^Setting\|^Unpacking\|^Selecting\|^Updating\|^Processing\)\b\|\(^I:\)/d' "$OUTPUTLOG-$CURRENTFUNC-log.txt"
+sed -i '/\b\(^Get\|^Preparing\|^Setting\|^Unpacking\|^Selecting\|^Updating\|^Processing\)\b\|\(^I:\)/d' "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"
 
-sed -i '/Running in chroot/d' "$OUTPUTLOG-$CURRENTFUNC-log.txt"
+sed -i '/Running in chroot/d' "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"
 
-sed -i '/(Reading database/d' "$OUTPUTLOG-$CURRENTFUNC-log.txt"
+sed -i '/(Reading database/d' "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"
 
-sed -i -e  '/^[[:blank:]]\+[[:digit:]]\+/d' "$OUTPUTLOG-$CURRENTFUNC-log.txt"
+sed -i -e  '/^[[:blank:]]\+[[:digit:]]\+/d' "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"
 }
 
 logExport()
 {
 echo "" >> "$OUTPUTLOG-log.txt"
-cat "$OUTPUTLOG-$CURRENTFUNC-log.txt" >> "$OUTPUTLOG-log.txt"
+cat "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" >> "$OUTPUTLOG-log.txt"
 echo "" >> "$OUTPUTLOG-log.txt"
-cat "$OUTPUTLOG-$CURRENTFUNC-log.txt" >> "$OUTPUTLOG-log.txt"
+cat "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" >> "$OUTPUTLOG-log.txt"
 }
 
 menuStart()
@@ -58,7 +58,7 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
   3) /bin/bash ;;
   4) break ;;
@@ -99,7 +99,7 @@ echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS i
 echo ""
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=4
+DEFAULT=7
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -123,10 +123,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;
   6) /bin/bash ;;
   7) break ;;
@@ -169,7 +169,7 @@ echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS i
 echo ""
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=4
+DEFAULT=7
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -192,10 +192,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;
   6) /bin/bash ;;
   7) LASTFUNC=$CURRENTFUNC; LASTARGS=$CURRENTARGS; CURRENTFUNC=$NEXTFUNC; CURRENTARGS=$NEXTARGS; break ;;
@@ -237,7 +237,7 @@ echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS i
 echo ""
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=5
+DEFAULT=8
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -262,10 +262,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;
   6) if [ -n "$ZFS" ]; then umount -Rl $TEMPMOUNT; $SCRIPTDIR/zfs-recursive-restore.sh zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"; else echo "NOT A ZFS INSTALL"; fi ;;
   7) /bin/bash ;;
@@ -309,7 +309,7 @@ echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS i
 echo ""
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=5
+DEFAULT=8
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -333,10 +333,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;
   6) if [ -n "$ZFS" ]; then umount -Rl $TEMPMOUNT; $SCRIPTDIR/zfs-recursive-restore.sh zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"; else echo "NOT A ZFS INSTALL"; fi ;;
   7) /bin/bash ;;
@@ -379,7 +379,7 @@ echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS i
 echo ""
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=6
+DEFAULT=9
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -405,10 +405,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;
   6) if [ -n "$ZFS" ]; then umount -Rl $TEMPMOUNT; $SCRIPTDIR/zfs-recursive-restore.sh zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"; else echo "NOT A ZFS INSTALL"; fi ;;
   7) /bin/bash ;;
@@ -451,7 +451,7 @@ DEFAULT=1
 echo "$LASTFUNC $LASTARGS was the previous function. $CURRENTFUNC $CURRENTARGS is the current function to run."
 elif (( RUNCOUNT >= 1 ))
 then 
-DEFAULT=6
+DEFAULT=9
 else 
 echo "Something weird happend with the functions RUNCOUNT that determines the correct default option to take when no user input is given. The timeout variable will be set to 10,000 seconds to avoid any issues that may result from this. This can be reversed by opening a shell to the live environment setting it to a new value with 'export TIMEOUT=#' with # being any number of seconds."
 TIMEOUT=10000
@@ -476,10 +476,10 @@ then
     n=$DEFAULT
 fi
 case $n in
-  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$CURRENTFUNC-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
+  1) "$SCRIPTDIR/subScripts/$CURRENTFUNC" "$CURRENTARGS" 2>&1 | tee -a "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt"; CURRENTFUNCSTATUS=${PIPESTATUS[0]}; logTrim ;;
   2) vim "$SCRIPTDIR/subScripts/$CURRENTFUNC" ;;
-  3) less "$OUTPUTLOG-$CURRENTFUNC-log.txt" ;;
-  4) less "$OUTPUTLOG-$LASTFUNC-log.txt" ;;
+  3) less "$OUTPUTLOG-$(echo $CURRENTFUNC | cut -d '/' -f2)-log.txt" ;;
+  4) less "$OUTPUTLOG-$(echo $LASTFUNC | cut -d '/' -f2)-log.txt" ;;
   5) less "$OUTPUTLOG-log.txt" ;;  
   6) if [ -n "$ZFS" ]; then umount -Rl $TEMPMOUNT; $SCRIPTDIR/zfs-recursive-restore.sh zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"; else echo "NOT A ZFS INSTALL"; fi ;;
   7) /bin/bash ;;
