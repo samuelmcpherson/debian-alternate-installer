@@ -16,11 +16,13 @@ export ZFSPART=
 
 export EFIPART=
 
-export DISK1=/dev/disk/by-id/
+export DISK1=
 
-export DISK2=/dev/disk/by-id/
+export DISK2=
 
 export TEMPMOUNT=/mnt
+
+export HOSTNAME=
 
 export LOGDIR="/logs/$HOSTNAME"
 
@@ -35,13 +37,11 @@ export DEBIAN_FRONTEND=noninteractive
 
 ### Required vars:
 
-export HOSTNAME=thinkpad-t430-debian
-
 export TIMEOUT=20 # number of seconds before selecting the default menu option
 
-export DOMAIN=housenet.lan
+export DOMAIN=
 
-export NETDEVICE=enp0s25
+export NETDEVICE=
 
     export DHCP=yes
 
@@ -51,9 +51,9 @@ export NETDEVICE=enp0s25
 
     export NETMASK=24
 
-    export GATEWAY=192.168.10.1
+    export GATEWAY=
 
-export RELEASE=bookworm # groovy, focal or hirsute
+export RELEASE=bookworm 
 
 export LANG=en_US.UTF-8
 
@@ -75,6 +75,8 @@ export DESKTOP=
     export KDE=
         
         export PARACHUTE=
+
+        export BISMUTH=
 
         export KROHNKITE=
     
