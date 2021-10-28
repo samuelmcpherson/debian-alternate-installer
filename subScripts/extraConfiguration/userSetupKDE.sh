@@ -23,7 +23,7 @@ cp $CONFIGDIR/wallpaper/* $TEMPMOUNT/usr/share/wallpapers/
 if [[ -n "$PARACHUTE" ]]
 then
 
-    cp -r $CONFIGDIR/home/kwin-scripts/Parachute $TEMPMOUNT/home/$USER/.local/share/kwin/scripts/
+#    cp -r $CONFIGDIR/home/kwin-scripts/Parachute $TEMPMOUNT/home/$USER/.local/share/kwin/scripts/
 
     cp -r $CONFIGDIR/home/kwin-scripts/toggleparachute $TEMPMOUNT/home/$USER/.local/share/kwin/scripts/
 
@@ -37,7 +37,7 @@ fi
 if [[ -n "$BISMUTH" ]]
 then
 
-    cp -r $CONFIGDIR/home/kwin-scripts/bismuth $TEMPMOUNT/home/$USER/.local/share/kwin/scripts/
+#    cp -r $CONFIGDIR/home/kwin-scripts/bismuth $TEMPMOUNT/home/$USER/.local/share/kwin/scripts/
 
     echo 'bismuthEnabled=true' >> $TEMPMOUNT/home/$USER/.config/kwinrc
 
@@ -46,7 +46,7 @@ fi
 if [[ -n "$KROHNKITE" ]]
 then
 
-    cp -r $CONFIGDIR/home/kwin-scripts/krohnkite $TEMPMOUNT/home/$USER/.local/share/kwin/scripts/
+#    cp -r $CONFIGDIR/home/kwin-scripts/krohnkite $TEMPMOUNT/home/$USER/.local/share/kwin/scripts/
 
     echo 'krohnkiteEnabled=true' >> $TEMPMOUNT/home/$USER/.config/kwinrc
 

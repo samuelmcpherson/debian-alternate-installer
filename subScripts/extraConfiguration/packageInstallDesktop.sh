@@ -7,34 +7,34 @@ chroot $TEMPMOUNT /bin/bash -c "apt -y install xcape gnome-keyring flatpak xfspr
 chroot $TEMPMOUNT /bin/bash -c "apt install -y texlive-base texlive-latex-base texlive-latex-extra texlive-latex-extra-doc texlive-latex-base-doc texlive-fonts-extra texlive-bibtex-extra && echo '---> apt install texlive-base texlive-latex-base texlive-latex-extra texlive-latex-extra-doc texlive-latex-base-doc texlive-fonts-extra texlive-bibtex-extra succeeded <--------------------------------------------------------------' || echo '---> apt install texlive-base texlive-latex-base texlive-latex-extra texlive-latex-extra-doc texlive-latex-base-doc texlive-fonts-extra texlive-bibtex-extra failed <--------------------------------------------------------------'"
 
 
-chroot $TEMPMOUNT /bin/bash -c "{
+#chroot $TEMPMOUNT /bin/bash -c "{
     
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+#    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 
-    flatpak install -y flathub com.github.eloston.ungoogledchromium/x86_64/stable
+#    flatpak install -y flathub com.github.eloston.ungoogledchromium/x86_64/stable
 
-    flatpak install -y flathub com.todoist.todoist
+#    flatpak install -y flathub com.todoist.todoist
 
-    flatpak install -y flathub com.vscodium.codium
+#    flatpak install -y flathub com.vscodium.codium
 
-    flatpak install -y flathub com.slack.slack
+#    flatpak install -y flathub com.slack.slack
 
-    flatpak install -y flathub ch.protonmail.protonmail-bridge
+#    flatpak install -y flathub ch.protonmail.protonmail-bridge
 
-    flatpak install -y flathub com.jgraph.drawio.desktop
+#    flatpak install -y flathub com.jgraph.drawio.desktop
 
-    flatpak install -y flathub com.discordapp.discord
+#    flatpak install -y flathub com.discordapp.discord
 
-    flatpak install -y flathub com.github.xournalpp.xournalpp
+#    flatpak install -y flathub com.github.xournalpp.xournalpp
 
-    flatpak install -y flathub us.zoom.zoom
+#    flatpak install -y flathub us.zoom.zoom
 
-    flatpak install -y flathub tech.feliciano.pocket-casts
+#    flatpak install -y flathub tech.feliciano.pocket-casts
 
-    flatpak install -y flathub com.axosoft.gitkraken
+#    flatpak install -y flathub com.axosoft.gitkraken
 
-}"
+#}"
 
 
 # old-non-repo-apps
