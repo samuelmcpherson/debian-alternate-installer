@@ -9,7 +9,7 @@ then
 
     zpool import -N -R $TEMPMOUNT zroot
 
-    zfs mount zroot/ROOT/debian && echo "---> mounted ZFS boot environment successfully <--------------------------------------------------------------" || { echo "failed to mount ZFS boot environment"; exit 1; }
+    zfs mount zroot/ROOT/debian/default && echo "---> mounted ZFS boot environment successfully <--------------------------------------------------------------" || { echo "failed to mount ZFS boot environment"; exit 1; }
     
 
     zfs mount -a && echo "---> mounted all ZFS datasets successfully <--------------------------------------------------------------" || { echo "failed to mount all ZFS datasets"; exit 1; }
@@ -34,7 +34,7 @@ then
 
     zpool import -N -R $TEMPMOUNT zroot
 
-    zfs mount zroot/ROOT/debian && echo "---> mounted ZFS boot environment successfully <--------------------------------------------------------------" || { echo "failed to mount ZFS boot environment"; exit 1; }
+    zfs mount zroot/ROOT/debian/default && echo "---> mounted ZFS boot environment successfully <--------------------------------------------------------------" || { echo "failed to mount ZFS boot environment"; exit 1; }
     
 
     zfs mount -a && echo "---> mounted all ZFS datasets successfully <--------------------------------------------------------------" || { echo "failed to mount all ZFS datasets"; exit 1; }

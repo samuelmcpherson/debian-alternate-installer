@@ -2,11 +2,13 @@
 
 zfs create -o canmount=off -o mountpoint=none -o org.zfsbootmenu:rootprefix="root=zfs:" -o org.zfsbootmenu:commandline="ro" zroot/ROOT
 
-zfs create -o canmount=noauto -o mountpoint=/ zroot/ROOT/debian
+zfs create -o canmount=off -o mountpoint=none zroot/ROOT/debian
 
-zfs mount zroot/ROOT/debian
+zfs create -o canmount=noauto -o mountpoint=/ zroot/ROOT/debian/default
 
-zpool set bootfs=zroot/ROOT/debian zroot
+zfs mount zroot/ROOT/debian/default
+
+zpool set bootfs=zroot/ROOT/debian/default zroot
 
 zfs create -o canmount=off -o mountpoint=none zroot/DATA
 

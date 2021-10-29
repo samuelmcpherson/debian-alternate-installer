@@ -1,5 +1,48 @@
 #!/bin/bash
 
+if [ "$RELEASE" == bullseye ]
+then 
+    DISTRIBUTION="Debian_11"
+
+elif [ "$RELEASE" == bookworm ]
+then 
+    DISTRIBUTION="Debian_Testing"
+
+elif [ "$RELEASE" == sid ]
+then 
+    DISTRIBUTION="Debian_Unstable"
+else
+    echo "No RELEASE variable set, how did you get here?"
+fi
+
+chroot $TEMPMOUNT /bin/bash -c "cd /tmp && wget https://www.preining.info/obs-npreining.asc"
+chroot $TEMPMOUNT /bin/bash -c "cd /tmp && apt-key add obs-npreining.asc"
+
+chroot $TEMPMOUNT /bin/bash -c "touch /etc/apt/sources.list.d/obs-npreining-kde.list"
+
+{
+    echo "deb https://download.opensuse.org/repositories/home:/npreining:/debian-kde:/other-deps/$DISTRIBUTION/ ./"
+    
+    echo "deb https://download.opensuse.org/repositories/home:/npreining:/debian-kde:/frameworks/$DISTRIBUTION/ ./"
+    
+    echo "deb https://download.opensuse.org/repositories/home:/npreining:/debian-kde:/plasma523/$DISTRIBUTION/ ./"
+
+    echo "deb https://download.opensuse.org/repositories/home:/npreining:/debian-kde:/apps2108/$DISTRIBUTION/ ./"
+    
+    echo "deb https://download.opensuse.org/repositories/home:/npreining:/debian-kde:/other/$DISTRIBUTION/ ./"
+
+} >> $TEMPMOUNT/etc/apt/sources.list.d/obs-npreining-kde.list
+
+chroot $TEMPMOUNT /bin/bash -c "touch/etc/apt/preferences.d/70_kde"
+
+{
+    
+echo 'Package: *'
+echo 'Pin: origin download.opensuse.org'
+echo 'Pin-Priority: 700'
+
+} > $TEMPMOUNT/etc/apt/preferences.d/70_kde
+
 chroot $TEMPMOUNT /bin/bash -c "apt update"
 
 chroot $TEMPMOUNT /bin/bash -c "apt install -y kde-plasma-desktop network-manager plasma-nm kwin-wayland kwin-wayland-backend-wayland kwin-wayland-backend-x11 wayland-protocols kwayland-integration kwayland-data plasma-workspace-wayland && echo '---> apt install kde-plasma-desktop succeeded <--------------------------------------------------------------' || { echo 'apt install kde-plasma-desktop failed'; exit 1; }" || exit 1
