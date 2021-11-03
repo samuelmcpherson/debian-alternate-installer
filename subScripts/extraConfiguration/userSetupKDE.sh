@@ -76,6 +76,8 @@ then
 
     sleep 2
 
+    sed -i '/renderTarget: KWinComponents.ThumbnailItem.FramebufferObject/d' $TEMPMOUNT/home/$USER/Parachute/contents/ui/ClientComponent.qml
+
     chroot $TEMPMOUNT su - $USER -c "cd /home/$USER/Parachute && make install"
 
     sleep 2
