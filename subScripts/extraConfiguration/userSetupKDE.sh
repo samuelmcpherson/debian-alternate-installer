@@ -98,21 +98,21 @@ then
     echo 'newWindowAsMaster=true'
     } >> $TEMPMOUNT/home/$USER/.config/kwinrc
 
-chroot $TEMPMOUNT /bin/bash -c "{
+chroot $TEMPMOUNT su - $USER -c "{
 
-echo 'Downloading the latest Bismuth release...'
+git clone https://github.com/Bismuth-Forge/bismuth.git
 
-wget -q --output-document /tmp/bismuth.tar.gz https://github.com/gikari/bismuth/releases/latest/download/bismuth.tar.gz
+cd bismuth && npm install
 
-echo 'Extracting...'
-mkdir -p /tmp/bismuth
-tar xf /tmp/bismuth.tar.gz --directory=/tmp/bismuth
+chmod +x bismuth/scripts/sysdep-install.sh
 
-chmod +x /tmp/bismuth/install.sh
-/tmp/bismuth/install.sh
+cd bismuth && npm run sysdep-install
+
+cd bismuth && npm run build
+
+ln -s ~/.local/share/kwin/scripts/bismuth/metadata.desktop ~/.local/share/kservices5/bismuth.desktop
+
 }"
-    
-    chroot $TEMPMOUNT su - $USER -c "ln -s ~/.local/share/kwin/scripts/bismuth/metadata.desktop ~/.local/share/kservices5/bismuth.desktop"
 
 fi
 
