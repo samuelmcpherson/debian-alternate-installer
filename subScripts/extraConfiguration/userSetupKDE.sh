@@ -72,6 +72,8 @@ then
     echo 'BorderActivate=7'
     } >> $TEMPMOUNT/home/$USER/.config/kwinrc
 
+    sed -i 's/Rows=1/Rows=5/g' $TEMPMOUNT/home/$USER/.config/kwinrc
+
     chroot $TEMPMOUNT su - $USER -c "cd /home/$USER && git clone https://github.com/tcorreabr/Parachute.git"
 
     sleep 2
@@ -81,6 +83,17 @@ then
     chroot $TEMPMOUNT su - $USER -c "cd /home/$USER/Parachute && make install"
 
     sleep 2
+
+elif [[ -z "$PARACHUTE" ]]
+then
+    
+    {
+    echo '[ModifierOnlyShortcuts]'
+    echo 'Meta=org.kde.kglobalaccel,/component/kwin,org.kde.kglobalaccel.Component,invokeShortcut,ShowDesktopGrid'
+    echo ''
+    echo '[Effect-DesktopGrid]'
+    echo 'BorderActivate=7'
+    } >> $TEMPMOUNT/home/$USER/.config/kwinrc
 
 fi
 

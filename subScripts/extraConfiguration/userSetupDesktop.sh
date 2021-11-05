@@ -39,11 +39,49 @@ then
 
     sleep 2
 
-    cp -r $CONFIGDIR/home/.config/gebaar $TEMPMOUNT/home/$USER/.config/gebaar
+    chroot $TEMPMOUNT su - $USER -c "mkdir -p $TEMPMOUNT/home/$USER/.config/gebaar"
 
     cp $CONFIGDIR/home/.config/autostart/gebaard.desktop $TEMPMOUNT/home/$USER/.config/autostart
 
     echo "Run 'make install' from ~/gebaar-libinput-fork/build on boot"
+
+    if [[ -n "$KDE" ]]
+    then 
+
+        if [[ -z "$PARACHUTE" ]] && [[ -n "$BISMUTH" ]] && [[ -z "$KROHNKITE" ]] 
+        then 
+            cp $CONFIGDIR/home/.config/gebaar-kde-bismuth.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+
+        elif [[ -z "$PARACHUTE" ]] && [[ -z "$BISMUTH" ]] && [[ -n "$KROHNKITE" ]] 
+        then 
+            cp $CONFIGDIR/home/.config/gebaar-kde-krohnkite.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+
+        elif [[ -n "$PARACHUTE" ]] && [[ -n "$BISMUTH" ]] && [[ -z "$KROHNKITE" ]]
+        then 
+            cp $CONFIGDIR/home/.config/gebaar-kde-parachute-bismuth.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+
+
+        elif [[ -n "$PARACHUTE" ]] && [[ -z "$BISMUTH" ]] && [[ -n "$KROHNKITE" ]]
+        then 
+            cp $CONFIGDIR/home/.config/gebaar-kde-parachute-krohnkite.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+        
+        elif [[ -n "$PARACHUTE" ]] && [[ -z "$KROHNKITE" ]] && [[ -z "$BISMUTH" ]]
+        then 
+            cp $CONFIGDIR/home/.config/gebaar-kde-parachute.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+        
+        elif [[ -z "$PARACHUTE" ]] && [[ -z "$BISMUTH" ]] && [[ -z "$KROHNKITE" ]] 
+        then 
+            cp $CONFIGDIR/home/.config/gebaar-kde.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+        
+        else
+
+            echo "Inconprehensible combination of kwin scripts to setup gestures for"
+
+        fi
+    
+    fi    
+
+
 fi
 
 chroot $TEMPMOUNT /bin/bash -c "chown -R $USER:users /home/$USER"
