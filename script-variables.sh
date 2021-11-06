@@ -74,6 +74,8 @@ export DESKTOP=
 
     export KDE=
         
+        export KDEREPO=
+
         export PARACHUTE=
 
         export BISMUTH=

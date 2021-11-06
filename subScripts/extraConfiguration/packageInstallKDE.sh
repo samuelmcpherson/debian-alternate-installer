@@ -1,5 +1,8 @@
 #!/bin/bash
 
+if [[ -n "$KDEREPO" ]]
+then
+
 if [ "$RELEASE" == bullseye ]
 then 
     DISTRIBUTION="Debian_11"
@@ -33,7 +36,7 @@ chroot $TEMPMOUNT /bin/bash -c "touch /etc/apt/sources.list.d/obs-npreining-kde.
 
 } >> $TEMPMOUNT/etc/apt/sources.list.d/obs-npreining-kde.list
 
-chroot $TEMPMOUNT /bin/bash -c "touch/etc/apt/preferences.d/70_kde"
+chroot $TEMPMOUNT /bin/bash -c "touch /etc/apt/preferences.d/70_kde"
 
 {
     
@@ -42,6 +45,8 @@ echo 'Pin: origin download.opensuse.org'
 echo 'Pin-Priority: 700'
 
 } > $TEMPMOUNT/etc/apt/preferences.d/70_kde
+
+fi
 
 chroot $TEMPMOUNT /bin/bash -c "apt update"
 
