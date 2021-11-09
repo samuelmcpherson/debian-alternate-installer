@@ -11,7 +11,7 @@ chroot $TEMPMOUNT /bin/bash -c "apt update"
 if [ "$RELEASE" = "hirsute" ]
 then
 
-	chroot $TEMPMOUNT /bin/bash -c "apt install -y linux-image-5.11.11-surface linux-headers-5.11.11-surface && echo '---> apt install linux-image-5.11.11-surface linux-headers-5.11.11-surface succeeded <--------------------------------------------------------------' || { echo 'apt install linux-image-5.11.11-surface linux-headers-5.11.11-surface failed'; exit 1; }" || exit 1
+	chroot $TEMPMOUNT /bin/bash -c "apt install -y linux-image-surface linux-headers-surface && echo '---> apt install linux-image-5.11.11-surface linux-headers-5.11.11-surface succeeded <--------------------------------------------------------------' || { echo 'apt install linux-image-5.11.11-surface linux-headers-5.11.11-surface failed'; exit 1; }" || exit 1
 
 fi
 

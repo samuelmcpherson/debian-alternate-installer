@@ -33,7 +33,7 @@ chroot $TEMPMOUNT /bin/bash -c "touch /etc/apt/sources.list.d/obs-npreining-kde.
 
 } >> $TEMPMOUNT/etc/apt/sources.list.d/obs-npreining-kde.list
 
-chroot $TEMPMOUNT /bin/bash -c "touch/etc/apt/preferences.d/70_kde"
+chroot $TEMPMOUNT /bin/bash -c "touch /etc/apt/preferences.d/70_kde"
 
 {
     

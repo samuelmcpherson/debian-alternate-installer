@@ -113,17 +113,17 @@ then
 
 chroot $TEMPMOUNT su - $USER -c "{
 
-git clone https://github.com/Bismuth-Forge/bismuth.git
+cd /home/$USER git clone https://github.com/Bismuth-Forge/bismuth.git
 
-cd bismuth && npm install
+cd /home/$USER/bismuth && npm install
 
-chmod +x bismuth/scripts/sysdep-install.sh
+chmod +x /home/$USER/bismuth/scripts/sysdep-install.sh
 
-cd bismuth && npm run sysdep-install
+cd /home/$USER/bismuth && npm run sysdep-install
 
-cd bismuth && npm run build
+cd /home/$USER/bismuth && npm run build
 
-ln -s ~/.local/share/kwin/scripts/bismuth/metadata.desktop ~/.local/share/kservices5/bismuth.desktop
+ln -s /home/$USER/.local/share/kwin/scripts/bismuth/metadata.desktop /home/$USER/.local/share/kservices5/bismuth.desktop
 
 }"
 
