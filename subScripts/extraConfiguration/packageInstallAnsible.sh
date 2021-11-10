@@ -1,6 +1,6 @@
 #!/bin/bash
 
-zfs create -o canmount=on -o mountpoint=/home/ansible zroot/DATA/debian/home/ansible
+zfs create -o canmount=on -o mountpoint=/home/ansible zroot/"$HOSTNAME"/DATA/home/ansible
 
 mkdir $TEMPMOUNT/home/ansible
 
@@ -14,6 +14,6 @@ chroot $TEMPMOUNT /bin/bash -c "echo 'ansible ALL=(ALL) NOPASSWD: ALL' >> /etc/s
 
 chroot $TEMPMOUNT /bin/bash -c "mkdir -p /home/ansible/.ssh" 
 
-cp $CONFIGDIR/ansible/authorized_keys $TEMPMOUNT/home/ansible/.ssh/
+cp $CONFIGDIR/home/.ssh/ansible/authorized_keys $TEMPMOUNT/home/ansible/.ssh/
 
 chroot $TEMPMOUNT /bin/bash -c "chown -R ansible:ansible /home/ansible"
