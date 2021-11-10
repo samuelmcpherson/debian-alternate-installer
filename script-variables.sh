@@ -16,13 +16,13 @@ export ZFSPART=
 
 export EFIPART=
 
-export DISK1=/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0
+export DISK1=
 
 export DISK2=
 
 export TEMPMOUNT=/mnt
 
-export HOSTNAME=ansible-control
+export HOSTNAME=
 
 export LOGDIR="/logs/$HOSTNAME"
 
@@ -39,9 +39,9 @@ export DEBIAN_FRONTEND=noninteractive
 
 export TIMEOUT=20 # number of seconds before selecting the default menu option
 
-export DOMAIN=managenet.lan
+export DOMAIN=
 
-export NETDEVICE=ens18
+export NETDEVICE=
 
     export DHCP=yes
 
@@ -66,7 +66,7 @@ export CONFIGREPO="https://github.com/samuelmcpherson/config-files.git"
 
 export CONFIGDIR="$TEMPMOUNT/home/$USER/$(echo $CONFIGREPO | cut -d '/' -f5 | sed -r 's/.{4}$//')"
 
-export ANSIBLE=yes
+export ANSIBLE=
 
 export HIDPI=
 

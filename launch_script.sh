@@ -532,8 +532,6 @@ apt install -y zfsutils-linux
 
 modprobe efivarfs
 
-source ./script-variables.sh
-
 echo "Start $(date +%Y-%m-%d_%H:%M)"
 
 if [ -n "$MANUAL_LAYOUT" ]
