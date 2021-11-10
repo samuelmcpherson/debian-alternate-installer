@@ -9,7 +9,7 @@ then
 
     zpool import -N -R $TEMPMOUNT zroot
 
-    zfs mount zroot/ROOT/debian && echo "---> mounted ZFS boot environment successfully <--------------------------------------------------------------" || { echo "failed to mount ZFS boot environment"; exit 1; }
+    zfs mount zroot/"$HOSTNAME"/ROOT/default && echo "---> mounted ZFS boot environment successfully <--------------------------------------------------------------" || { echo "failed to mount ZFS boot environment"; exit 1; }
     
 
     zfs mount -a && echo "---> mounted all ZFS datasets successfully <--------------------------------------------------------------" || { echo "failed to mount all ZFS datasets"; exit 1; }
@@ -34,7 +34,7 @@ then
 
     zpool import -N -R $TEMPMOUNT zroot
 
-    zfs mount zroot/ROOT/debian && echo "---> mounted ZFS boot environment successfully <--------------------------------------------------------------" || { echo "failed to mount ZFS boot environment"; exit 1; }
+    zfs mount zroot/"$HOSTNAME"/ROOT/default && echo "---> mounted ZFS boot environment successfully <--------------------------------------------------------------" || { echo "failed to mount ZFS boot environment"; exit 1; }
     
 
     zfs mount -a && echo "---> mounted all ZFS datasets successfully <--------------------------------------------------------------" || { echo "failed to mount all ZFS datasets"; exit 1; }
@@ -58,6 +58,10 @@ fi
 done
 
 sed -Ei "s|$TEMPMOUNT/?|/|" $TEMPMOUNT/etc/fstab
+
+sed -i 's/efi vfat defaults 0 0/efi vfat defaults,noauto 0 0/g' $TEMPMOUNT/etc/fstab
+
+sed -i 's/efi2 vfat defaults 0 0/efi2 vfat defaults,noauto 0 0/g' $TEMPMOUNT/etc/fstab
 
 mkdir -p $TEMPMOUNT/dev
 
