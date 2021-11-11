@@ -39,39 +39,41 @@ then
 
     sleep 2
 
-    chroot $TEMPMOUNT su - $USER -c "mkdir -p $TEMPMOUNT/home/$USER/.config/gebaar"
+    mkdir -p $TEMPMOUNT/home/$USER/.config/gebaar
 
     cp $CONFIGDIR/home/.config/autostart/gebaard.desktop $TEMPMOUNT/home/$USER/.config/autostart
 
     echo "Run 'make install' from ~/gebaar-libinput-fork/build on boot"
+
+    chroot $TEMPMOUNT /bin/bash -c "chown -R $USER:users /home/$USER"
 
     if [[ -n "$KDE" ]]
     then 
 
         if [[ -z "$PARACHUTE" ]] && [[ -n "$BISMUTH" ]] && [[ -z "$KROHNKITE" ]] 
         then 
-            cp $CONFIGDIR/home/.config/gebaar-kde-bismuth.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+            cp $CONFIGDIR/home/.config/gebaar/gebaard-kde-bismuth.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
 
         elif [[ -z "$PARACHUTE" ]] && [[ -z "$BISMUTH" ]] && [[ -n "$KROHNKITE" ]] 
         then 
-            cp $CONFIGDIR/home/.config/gebaar-kde-krohnkite.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+            cp $CONFIGDIR/home/.config/gebaar/gebaard-kde-krohnkite.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
 
         elif [[ -n "$PARACHUTE" ]] && [[ -n "$BISMUTH" ]] && [[ -z "$KROHNKITE" ]]
         then 
-            cp $CONFIGDIR/home/.config/gebaar-kde-parachute-bismuth.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+            cp $CONFIGDIR/home/.config/gebaar/gebaard-kde-parachute-bismuth.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
 
 
         elif [[ -n "$PARACHUTE" ]] && [[ -z "$BISMUTH" ]] && [[ -n "$KROHNKITE" ]]
         then 
-            cp $CONFIGDIR/home/.config/gebaar-kde-parachute-krohnkite.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+            cp $CONFIGDIR/home/.config/gebaar/gebaard-kde-parachute-krohnkite.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
         
         elif [[ -n "$PARACHUTE" ]] && [[ -z "$KROHNKITE" ]] && [[ -z "$BISMUTH" ]]
         then 
-            cp $CONFIGDIR/home/.config/gebaar-kde-parachute.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+            cp $CONFIGDIR/home/.config/gebaar/gebaard-kde-parachute.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
         
         elif [[ -z "$PARACHUTE" ]] && [[ -z "$BISMUTH" ]] && [[ -z "$KROHNKITE" ]] 
         then 
-            cp $CONFIGDIR/home/.config/gebaar-kde.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
+            cp $CONFIGDIR/home/.config/gebaar/gebaard-kde.toml $TEMPMOUNT/home/$USER/.config/gebaar/gebaard.toml
         
         else
 

@@ -10,9 +10,9 @@ export MANUAL_LAYOUT=
 
 export ZFS=yes
 
-export MIRROR=mirror
+export MIRROR=
 
-export ZFSPART= 
+export ZFSPART=
 
 export EFIPART=
 
@@ -53,7 +53,7 @@ export NETDEVICE=
 
     export GATEWAY=
 
-export RELEASE=bookworm 
+export RELEASE=bullseye
 
 export LANG=en_US.UTF-8
 

@@ -19,6 +19,7 @@ fi
 
 cp $CONFIGDIR/wallpaper/* $TEMPMOUNT/usr/share/wallpapers/
 
+mkdir -p $TEMPMOUNT/home/$USER/.local/share/kwin/scripts/
 
 if [[ -n "$PARACHUTE" ]]
 then
@@ -78,7 +79,7 @@ then
 
     sleep 2
 
-    sed -i '/renderTarget: KWinComponents.ThumbnailItem.FramebufferObject/d' $TEMPMOUNT/home/$USER/Parachute/contents/ui/ClientComponent.qml
+#    sed -i '/renderTarget: KWinComponents.ThumbnailItem.FramebufferObject/d' $TEMPMOUNT/home/$USER/Parachute/contents/ui/ClientComponent.qml
 
     chroot $TEMPMOUNT su - $USER -c "cd /home/$USER/Parachute && make install"
 
@@ -111,21 +112,27 @@ then
     echo 'newWindowAsMaster=true'
     } >> $TEMPMOUNT/home/$USER/.config/kwinrc
 
-chroot $TEMPMOUNT su - $USER -c "{
+chroot $TEMPMOUNT su - $USER -c "cd /home/$USER && git clone https://github.com/Bismuth-Forge/bismuth.git"
 
-cd /home/$USER git clone https://github.com/Bismuth-Forge/bismuth.git
+chroot $TEMPMOUNT su - $USER -c "touch /home/$USER/bismuth/install-script.sh"
 
-cd /home/$USER/bismuth && npm install
+chroot $TEMPMOUNT su - $USER -c "chmod +x /home/$USER/bismuth/install-script.sh"
 
-chmod +x /home/$USER/bismuth/scripts/sysdep-install.sh
+{
 
-cd /home/$USER/bismuth && npm run sysdep-install
+echo '#!/bin/bash'
 
-cd /home/$USER/bismuth && npm run build
+echo "npm install"
 
-ln -s /home/$USER/.local/share/kwin/scripts/bismuth/metadata.desktop /home/$USER/.local/share/kservices5/bismuth.desktop
+echo "chmod +x ~/bismuth/scripts/sysdep-install.sh"
 
-}"
+echo "npm run sysdep-install"
+
+echo "npm run build"
+
+echo "ln -s ~/.local/share/kwin/scripts/bismuth/metadata.desktop ~/.local/share/kservices5/bismuth.desktop"
+
+} > $TEMPMOUNT/home/$USER/bismuth/install-script.sh
 
 fi
 
@@ -158,3 +165,5 @@ then
     chroot $TEMPMOUNT su - $USER -c "ln -s ~/.local/share/kwin/scripts/krohnkite/metadata.desktop ~/.local/share/kservices5/krohnkite.desktop"
 
 fi
+
+chroot $TEMPMOUNT /bin/bash -c "chown -R $USER:users /home/$USER"
