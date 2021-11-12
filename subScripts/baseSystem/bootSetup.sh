@@ -44,7 +44,7 @@ chroot $TEMPMOUNT /bin/bash -c "touch /etc/zfsbootmenu/config.yaml"
 
 
 
-chroot $TEMPMOUNT /bin/bash -c "dracut --force --kver $(ls $TEMPMOUNT/lib/modules)"
+#chroot $TEMPMOUNT /bin/bash -c "dracut --force --kver $(ls $TEMPMOUNT/lib/modules)"
 
 chroot $TEMPMOUNT /bin/bash -c "generate-zbm"
 
