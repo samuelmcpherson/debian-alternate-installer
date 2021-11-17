@@ -1,6 +1,6 @@
 #!/bin/bash
 
-chroot $TEMPMOUNT /bin/bash -c "apt install -y firmware-b43-installer mbpfan && echo '---> apt install firmware-b43-installer mbpfan succeeded <--------------------------------------------------------------' || { echo 'apt install firmware-b43-installer mbpfan failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt install -y broadcom-sta-common mbpfan && echo '---> apt install firmware-b43-installer mbpfan succeeded <--------------------------------------------------------------' || { echo 'apt install firmware-b43-installer mbpfan failed'; exit 1; }" || exit 1
 
 chroot $TEMPMOUNT /bin/bash -c "systemctl unmask mbpfan"
 
