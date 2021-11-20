@@ -9,13 +9,13 @@ chroot $TEMPMOUNT /bin/bash -c "apt -y install zsh zsh-antigen wget git irssi ly
 if [ -n "$ZFS" ]
 then
 
-chroot $TEMPMOUNT /bin/bash -c "apt install -y debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer && echo '---> apt install debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer succeeded <--------------------------------------------------------------' || { echo 'apt install debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt install -y debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer sanoid && echo '---> apt install debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer sanoid succeeded <--------------------------------------------------------------' || { echo 'apt install debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer sanoid failed'; exit 1; }" || exit 1
 
-chroot $TEMPMOUNT /bin/bash -c "cd /tmp && git clone https://github.com/jimsalterjrs/sanoid.git"
+#chroot $TEMPMOUNT /bin/bash -c "cd /tmp && git clone https://github.com/jimsalterjrs/sanoid.git"
 
-chroot $TEMPMOUNT /bin/bash -c "cd /tmp/sanoid && git checkout $(git tag | grep '^v' | tail -n 1) && ln -s packages/debian . && dpkg-buildpackage -uc -us && echo '---> sanoid build succeeded <--------------------------------------------------------------' || { echo 'sanoid build failed'; exit 1; }" || exit 1
+#chroot $TEMPMOUNT /bin/bash -c "cd /tmp/sanoid && git checkout $(git tag | grep '^v' | tail -n 1) && ln -s packages/debian . && dpkg-buildpackage -uc -us && echo '---> sanoid build succeeded <--------------------------------------------------------------' || { echo 'sanoid build failed'; exit 1; }" || exit 1
 
-chroot $TEMPMOUNT /bin/bash -c "apt install -y /tmp/sanoid_*_all.deb && echo '---> apt install /tmp/sanoid_*_all.deb succeeded <--------------------------------------------------------------' || { echo 'apt install /tmp/sanoid_*_all.deb failed'; exit 1; }" || exit 1
+#chroot $TEMPMOUNT /bin/bash -c "apt install -y /tmp/sanoid_*_all.deb && echo '---> apt install /tmp/sanoid_*_all.deb succeeded <--------------------------------------------------------------' || { echo 'apt install /tmp/sanoid_*_all.deb failed'; exit 1; }" || exit 1
 
 chroot $TEMPMOUNT /bin/bash -c "systemctl enable sanoid.timer"
 

@@ -2,7 +2,7 @@
 
 
 chroot $TEMPMOUNT /bin/bash -c "apt update"
-chroot $TEMPMOUNT /bin/bash -c "apt -y install xcape gnome-keyring flatpak xfsprogs wireshark-doc firefox-esr thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon pandoc && echo '---> apt install gnome-keyring flatpak xfsprogs wireshark-doc firefox-esr thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon succeeded <--------------------------------------------------------------' || { echo 'apt install gnome-keyring flatpak xfsprogs wireshark-doc firefox-esr thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt -y install xcape gnome-keyring flatpak xfsprogs wireshark-doc thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon pandoc && echo '---> apt install gnome-keyring flatpak xfsprogs wireshark-doc thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon succeeded <--------------------------------------------------------------' || { echo 'apt install gnome-keyring flatpak xfsprogs wireshark-doc thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon failed'; exit 1; }" || exit 1
 
 chroot $TEMPMOUNT /bin/bash -c "apt install -y texlive-base texlive-latex-base texlive-latex-extra texlive-latex-extra-doc texlive-latex-base-doc texlive-fonts-extra texlive-bibtex-extra && echo '---> apt install texlive-base texlive-latex-base texlive-latex-extra texlive-latex-extra-doc texlive-latex-base-doc texlive-fonts-extra texlive-bibtex-extra succeeded <--------------------------------------------------------------' || echo '---> apt install texlive-base texlive-latex-base texlive-latex-extra texlive-latex-extra-doc texlive-latex-base-doc texlive-fonts-extra texlive-bibtex-extra failed <--------------------------------------------------------------'"
 
@@ -12,6 +12,10 @@ chroot $TEMPMOUNT /bin/bash -c "{
     echo '#!/bin/bash'
 
     echo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+    echo flatpak install flathub com.github.tchx84.Flatseal
+
+    echo flatpak install flathub org.mozilla.firefox
 
     echo flatpak install -y flathub com.github.eloston.ungoogledchromium/x86_64/stable
 
