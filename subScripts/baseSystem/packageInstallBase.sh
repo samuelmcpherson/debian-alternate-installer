@@ -4,11 +4,11 @@ chroot $TEMPMOUNT /bin/bash -c "apt -y update"
 
 chroot $TEMPMOUNT /bin/bash -c "apt dist-upgrade -y && echo '---> apt dist-upgrade succeeded <--------------------------------------------------------------' || { echo 'apt dist-upgrade failed'; exit 1; }" || exit 1
 
-#chroot $TEMPMOUNT /bin/bash -c "apt install -y dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux && echo '---> apt install dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux succeeded <--------------------------------------------------------------' || { echo 'apt install dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt install -y dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux && echo '---> apt install dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux succeeded <--------------------------------------------------------------' || { echo 'apt install dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux failed'; exit 1; }" || exit 1
 
 if [ -n "$ZFS" ]
 then
-    chroot $TEMPMOUNT /bin/bash -c "apt install -y zfs-dkms zfsutils-linux zfs-zed zfs-initramfs kexec-tools libconfig-inifiles-perl libsort-versions-perl libboolean-perl fzf mbuffer spl-dkms dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux && echo '---> apt install zfs-dkms zfsutils-linux zfs-zed dracut-core zfs-dracut kexec-tools kexec-tools libconfig-inifiles-perl libsort-versions-perl libboolean-perl fzf mbuffer succeeded <--------------------------------------------------------------' || { echo 'apt install zfs-dkms zfsutils-linux zfs-zed zfs-initramfs kexec-tools kexec-tools kexec-tools libconfig-inifiles-perl libsort-versions-perl libboolean-perl fzf mbuffer failed'; exit 1; }" || exit 1
+    chroot $TEMPMOUNT /bin/bash -c "apt install -y zfs-dkms zfsutils-linux zfs-zed zfs-dracut dracut-core kexec-tools libconfig-inifiles-perl libsort-versions-perl libboolean-perl fzf mbuffer spl-dkms && echo '---> apt install zfs-dkms zfsutils-linux zfs-zed dracut-core zfs-dracut kexec-tools kexec-tools libconfig-inifiles-perl libsort-versions-perl libboolean-perl fzf mbuffer succeeded <--------------------------------------------------------------' || { echo 'apt install zfs-dkms zfsutils-linux zfs-zed zfs-initramfs kexec-tools kexec-tools kexec-tools libconfig-inifiles-perl libsort-versions-perl libboolean-perl fzf mbuffer failed'; exit 1; }" || exit 1
 fi
 
 
