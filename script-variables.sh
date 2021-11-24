@@ -96,6 +96,10 @@ export DESKTOP=
 
     export MAC=
 
+        export MACWIFIWL=
+
+        export MACWIFIB43=
+
         export FNKEYMODESWAP=
 
         export ALTCMDKEYSWAP=

@@ -1,6 +1,20 @@
 #!/bin/bash
 
-chroot $TEMPMOUNT /bin/bash -c "apt install -y broadcom-sta-common mbpfan && echo '---> apt install firmware-b43-installer mbpfan succeeded <--------------------------------------------------------------' || { echo 'apt install firmware-b43-installer mbpfan failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt install -y mbpfan && echo '---> apt install mbpfan succeeded <--------------------------------------------------------------' || { echo 'apt install mbpfan failed'; exit 1; }" || exit 1
+
+if [[ -n "$MACWIFIWL" ]]
+then
+    chroot $TEMPMOUNT /bin/bash -c "apt install -y broadcom-sta-common && echo '---> apt install broadcom-sta-common succeeded <--------------------------------------------------------------' || { echo 'apt install broadcom-sta-common failed'; exit 1; }" || exit 1
+
+elif [[ -n "$MACWIFIB43" ]]
+then
+
+    chroot $TEMPMOUNT /bin/bash -c "apt install -y firmware-b43-installer && echo '---> apt install firmware-b43-installer succeeded <--------------------------------------------------------------' || { echo 'apt install firmware-b43-installer failed'; exit 1; }" || exit 1
+
+else 
+    echo ""
+
+fi
 
 chroot $TEMPMOUNT /bin/bash -c "systemctl unmask mbpfan"
 
