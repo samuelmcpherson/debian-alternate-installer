@@ -2,7 +2,12 @@
 
 
 chroot $TEMPMOUNT /bin/bash -c "apt update"
-chroot $TEMPMOUNT /bin/bash -c "apt -y install xcape gnome-keyring flatpak xfsprogs wireshark-doc thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon pandoc && echo '---> apt install gnome-keyring flatpak xfsprogs wireshark-doc thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon succeeded <--------------------------------------------------------------' || { echo 'apt install gnome-keyring flatpak xfsprogs wireshark-doc thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon failed'; exit 1; }" || exit 1
+
+
+chroot $TEMPMOUNT /bin/bash -c "apt -y install wireless-tools x11-apps x11-session-utils notification-daemon mesa-utils midisport-firmware gnome-firmware hdmi2usb-fx2-firmware dns323-firmware-tools atmel-firmware firmware-amd-graphics firmware-ath9k-htc firmware-atheros firmware-bnx2 firmware-bnx2x firmware-brcm80211 firmware-cavium firmware-intel-sound firmware-intelwimax firmware-ipw2x00 firmware-ivtv firmware-iwlwifi firmware-libertas firmware-linux-free firmware-linux-nonfree firmware-linux firmware-microbit-micropython-doc firmware-microbit-micropython firmware-misc-nonfree firmware-myricom firmware-netronome firmware-netxen firmware-qcom-media firmware-qcom-soc firmware-qlogic firmware-realtek firmware-samsung firmware-siano firmware-sof-signed firmware-ti-connectivity firmware-tomu firmware-zd1211 bluetooth bluez-firmware alsa-utils avahi-autoipd hspell-gui hspell hunspell hyphen-en-us i2c-tools uim-data uim-fep uim-gtk2.0-immodule uim-gtk2.0 uim-gtk3-immodule uim-gtk3 uim-plugins uim-qt5-immodule uim-qt5 uim-xim uim ubertooth-firmware-source bertooth-firmware ubertooth uim-data task-english"
+
+
+chroot $TEMPMOUNT /bin/bash -c "apt -y install xcape gnome-keyring flatpak xfsprogs wireshark-doc firefox-esr thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon pandoc && echo '---> apt install gnome-keyring flatpak xfsprogs wireshark-doc firefox-esr thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon succeeded <--------------------------------------------------------------' || { echo 'apt install gnome-keyring flatpak xfsprogs wireshark-doc firefox-esr thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon failed'; exit 1; }" || exit 1
 
 chroot $TEMPMOUNT /bin/bash -c "apt install -y texlive-base texlive-latex-base texlive-latex-extra texlive-latex-extra-doc texlive-latex-base-doc texlive-fonts-extra texlive-bibtex-extra && echo '---> apt install texlive-base texlive-latex-base texlive-latex-extra texlive-latex-extra-doc texlive-latex-base-doc texlive-fonts-extra texlive-bibtex-extra succeeded <--------------------------------------------------------------' || echo '---> apt install texlive-base texlive-latex-base texlive-latex-extra texlive-latex-extra-doc texlive-latex-base-doc texlive-fonts-extra texlive-bibtex-extra failed <--------------------------------------------------------------'"
 
@@ -12,10 +17,6 @@ chroot $TEMPMOUNT /bin/bash -c "{
     echo '#!/bin/bash'
 
     echo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-    echo flatpak install flathub com.github.tchx84.Flatseal
-
-    echo flatpak install flathub org.mozilla.firefox
 
     echo flatpak install -y flathub com.github.eloston.ungoogledchromium/x86_64/stable
 

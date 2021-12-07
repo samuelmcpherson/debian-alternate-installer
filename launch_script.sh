@@ -756,18 +756,18 @@ export LASTFUNC=$CURRENTFUNC
 export LASTARGS=$CURRENTARGS
 
 
-export CURRENTFUNC="baseSystem/bootSetup.sh"
-export CURRENTARGS=
+#export CURRENTFUNC="baseSystem/bootSetup.sh"
+#export CURRENTARGS=
 
-if [ -n "$ZFS" ]
-then
-zfs snapshot -r zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"
-fi
+#if [ -n "$ZFS" ]
+#then
+#zfs snapshot -r zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"
+#fi
 
-menuFull
+#menuFull
 
-export LASTFUNC=$CURRENTFUNC
-export LASTARGS=$CURRENTARGS
+#export LASTFUNC=$CURRENTFUNC
+#export LASTARGS=$CURRENTARGS
 
 
 if [ -n "$MIRROR" ] && [ -n "$EFI" ]
