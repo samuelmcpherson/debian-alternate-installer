@@ -1,5 +1,7 @@
 #!/bin/bash
 
+chroot $TEMPMOUNT /bin/bash -c "zfs set org.zfsbootmenu:commandline='intel_iommu=off' zroot/$HOSTNAME/ROOT"
+
 chroot $TEMPMOUNT /bin/bash -c "wget -qO - https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc | gpg --dearmor | dd of=/etc/apt/trusted.gpg.d/linux-surface.gpg"
 
 chroot $TEMPMOUNT /bin/bash -c "echo 'deb [arch=amd64] https://pkg.surfacelinux.com/debian release main' > /etc/apt/sources.list.d/linux-surface.list"
@@ -19,6 +21,8 @@ then
 fi
 
 cp $CONFIGDIR/surface/NetworkManager.conf $TEMPMOUNT/etc/NetworkManager/
+
+mkdir -p $TEMPMOUNT/etc/thermald/
 
 cp $CONFIGDIR/surface/thermal-conf.xml $TEMPMOUNT/etc/thermald/
 
