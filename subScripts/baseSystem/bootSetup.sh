@@ -2,11 +2,15 @@
 
 if [ -n "$SURFACE" ]
 then
-  cp -r $CONFIGDIR/boot/efi/EFI/debian-surface /mnt/boot/efi/debian
+  cp -r $CONFIGDIR/boot/efi/EFI/debian-surface /mnt/boot/efi/EFI/debian
 
 elif [ -n "$MAC" ]
 then
-  cp -r $CONFIGDIR/boot/efi/EFI/debian-mac /mnt/boot/efi/debian
+  cp -r $CONFIGDIR/boot/efi/EFI/debian-mac /mnt/boot/efi/EFI/debian
+
+elif [ -n "$MAC" ]
+then
+  cp -r $CONFIGDIR/boot/efi/EFI/debian-thinkpad /mnt/boot/efi/EFI/debian
 
 else
   chroot $TEMPMOUNT /bin/bash -c "mkdir -p /boot/efi/EFI/debian"
