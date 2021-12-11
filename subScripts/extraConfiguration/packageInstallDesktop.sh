@@ -20,6 +20,8 @@ chroot $TEMPMOUNT /bin/bash -c "{
 
     echo flatpak install -y flathub com.github.eloston.ungoogledchromium/x86_64/stable
 
+    echo flatpak install -y org.mozilla.firefox/x86_64/stable
+
     echo flatpak install -y flathub com.todoist.todoist
 
     echo flatpak install -y flathub com.vscodium.codium
