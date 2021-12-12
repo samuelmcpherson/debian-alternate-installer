@@ -8,7 +8,7 @@ cp $CONFIGDIR/onboard_toggle.sh $TEMPMOUNT/usr/bin/onboard_toggle.sh
 
 chroot $TEMPMOUNT /bin/bash -c "chmod +x /usr/bin/onboard_toggle.sh"
 
-cp $CONFIGDIR/home/.config/autostart/onboard_toggle.desktop $TEMPMOUNT/home/$USER/.config/autostart/onboard_toggle.desktop
+cp $CONFIGDIR/home/.config/autostart/onboard.desktop $TEMPMOUNT/home/$USER/.config/autostart/onboard.desktop
 
 cp -r $CONFIGDIR/home/touchscreenextras-master $TEMPMOUNT/home/$USER/
 

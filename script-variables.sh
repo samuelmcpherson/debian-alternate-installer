@@ -84,7 +84,7 @@ export DESKTOP=
     
     export GESTURES=
 
-    export TOUCH=
+    export TOUCHSCREEN=
 
     export HIDPI=
 
