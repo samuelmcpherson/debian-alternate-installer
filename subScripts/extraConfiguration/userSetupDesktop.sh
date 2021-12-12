@@ -19,6 +19,8 @@ cp $CONFIGDIR/etc/X11/xorg.conf.d/30-touchpad.conf $TEMPMOUNT/etc/X11/xorg.conf.
 
 cp $CONFIGDIR/caps_remap.sh $TEMPMOUNT/usr/bin/caps_remap.sh
 
+chroot $TEMPMOUNT /bin/bash -c "chmod +x /usr/bin/caps_remap.sh"
+
 mkdir -p $TEMPMOUNT/home/$USER/.config/autostart
 
 cp $CONFIGDIR/home/.config/autostart/conky* $TEMPMOUNT/home/$USER/.config/autostart/
@@ -83,7 +85,20 @@ then
     
     fi    
 
-
-fi
-
 chroot $TEMPMOUNT /bin/bash -c "chown -R $USER:users /home/$USER"
+
+{
+
+echo '[connection]'
+echo 'wifi.powersave = 2'
+
+} >> $TEMPMOUNT/etc/NetworkManager/NetworkManager.conf
+
+{
+
+echo 'blacklist nouveau'
+echo 'options nouveau modeset=0'    
+
+} > $TEMPMOUNT/etc/modprobe.d/blacklist-nouveau.conf
+
+chroot $TEMPMOUNT /bin/bash -c "update-initramfs -c -k all"

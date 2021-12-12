@@ -4,7 +4,7 @@ zfs create -o canmount=on -o mountpoint=/home/ansible zroot/"$HOSTNAME"/DATA/hom
 
 mkdir $TEMPMOUNT/home/ansible
 
-chroot $TEMPMOUNT /bin/bash -c "apt install -y ansible && echo '---> apt install ansible succeeded <--------------------------------------------------------------' || { echo 'apt install ansible failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt-get install -y ansible && echo '---> apt install ansible succeeded <--------------------------------------------------------------' || { echo 'apt install ansible failed'; exit 1; }" || exit 1
 
 chroot $TEMPMOUNT /bin/bash -c "useradd -M -s /bin/bash -d /home/ansible ansible"
 

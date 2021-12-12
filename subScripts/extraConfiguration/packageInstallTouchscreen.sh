@@ -1,5 +1,17 @@
-chroot $TEMPMOUNT /bin/bash -c "apt install -y libqt5virtualkeyboard5 onboard iio-sensor-proxy && echo '---> apt install libqt5virtualkeyboard5 onboard iio-sensor-proxy succeeded <--------------------------------------------------------------' || echo '---> apt install libqt5virtualkeyboard5 onboard iio-sensor-proxy failed <--------------------------------------------------------------'" 
+chroot $TEMPMOUNT /bin/bash -c "apt-get install -y libqt5virtualkeyboard5 onboard iio-sensor-proxy && echo '---> apt install libqt5virtualkeyboard5 onboard iio-sensor-proxy succeeded <--------------------------------------------------------------' || echo '---> apt install libqt5virtualkeyboard5 onboard iio-sensor-proxy failed <--------------------------------------------------------------'" 
 
-chroot $TEMPMOUNT /bin/bash -c "echo 'MOZ_USE_XINPUT2=1' >> /etc/environment"
+chroot $TEMPMOUNT /bin/bash -c "mkdir /etc/security"
 
-cp $WORKDIR/$FILEREPO/surface/30-touchpad.conf $TEMPMOUNT/etc/X11/xorg.conf.d/
+chroot $TEMPMOUNT /bin/bash -c "echo 'MOZ_USE_XINPUT2 DEFAULT=1' >> /etc/security/pam_env.conf"
+
+cp $CONFIGDIR/onboard_toggle.sh $TEMPMOUNT/usr/bin/onboard_toggle.sh
+
+chroot $TEMPMOUNT /bin/bash -c "chmod +x /usr/bin/onboard_toggle.sh"
+
+cp $CONFIGDIR/home/.config/autostart/onboard_toggle.desktop $TEMPMOUNT/home/$USER/.config/autostart/onboard_toggle.desktop
+
+cp -r $CONFIGDIR/home/touchscreenextras-master $TEMPMOUNT/home/$USER/
+
+cp $CONFIGDIR/home/.config/autostart/launch_touchScreenExtras.desktop $TEMPMOUNT/home/$USER/.config/autostart/launch_touchScreenExtras.desktop
+
+chroot $TEMPMOUNT /bin/bash -c "chown -R $USER:users /home/$USER"

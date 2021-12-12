@@ -1,15 +1,15 @@
 #!/bin/bash
 
-chroot $TEMPMOUNT /bin/bash -c "apt -y update"
+chroot $TEMPMOUNT /bin/bash -c "apt-get -y update"
 
-chroot $TEMPMOUNT /bin/bash -c "apt dist-upgrade --yes && echo '---> apt dist-upgrade succeeded <--------------------------------------------------------------' || { echo 'apt dist-upgrade failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt-get dist-upgrade --yes && echo '---> apt dist-upgrade succeeded <--------------------------------------------------------------' || { echo 'apt dist-upgrade failed'; exit 1; }" || exit 1
 
-chroot $TEMPMOUNT /bin/bash -c "apt -y install zsh zsh-antigen wget git irssi lynx elinks lm-sensors net-tools screen tmux sysstat htop iotop ripgrep nmap iftop vim tcpdump cups samba smartmontools make cmake build-essential libsystemd-dev pkg-config && echo '---> apt install zsh zsh-antigen wget git irssi lynx elinks lm-sensors net-tools screen tmux sysstat htop iotop ripgrep nmap iftop vim thermald tcpdump cups samba pv smartmontools make cmake build-essential libsystemd-dev pkg-config succeeded <--------------------------------------------------------------' || { echo 'apt install zsh zsh-antigen wget git irssi lynx elinks lm-sensors net-tools screen tmux sysstat htop iotop ripgrep nmap iftop vim thermald tcpdump cups samba pv smartmontools make cmake build-essential libsystemd-dev pkg-config failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt-get -y install zsh zsh-antigen wget git irssi lynx elinks lm-sensors net-tools screen tmux sysstat htop iotop ripgrep nmap iftop vim tcpdump cups samba smartmontools make cmake build-essential libsystemd-dev pkg-config && echo '---> apt install zsh zsh-antigen wget git irssi lynx elinks lm-sensors net-tools screen tmux sysstat htop iotop ripgrep nmap iftop vim thermald tcpdump cups samba pv smartmontools make cmake build-essential libsystemd-dev pkg-config succeeded <--------------------------------------------------------------' || { echo 'apt install zsh zsh-antigen wget git irssi lynx elinks lm-sensors net-tools screen tmux sysstat htop iotop ripgrep nmap iftop vim thermald tcpdump cups samba pv smartmontools make cmake build-essential libsystemd-dev pkg-config failed'; exit 1; }" || exit 1
 
 if [ -n "$ZFS" ]
 then
 
-chroot $TEMPMOUNT /bin/bash -c "apt install -y debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer sanoid && echo '---> apt install debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer sanoid succeeded <--------------------------------------------------------------' || { echo 'apt install debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer sanoid failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt-get install -y debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer sanoid && echo '---> apt install debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer sanoid succeeded <--------------------------------------------------------------' || { echo 'apt install debhelper libcapture-tiny-perl libconfig-inifiles-perl pv lzop mbuffer sanoid failed'; exit 1; }" || exit 1
 
 #chroot $TEMPMOUNT /bin/bash -c "cd /tmp && git clone https://github.com/jimsalterjrs/sanoid.git"
 

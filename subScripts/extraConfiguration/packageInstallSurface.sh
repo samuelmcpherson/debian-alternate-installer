@@ -6,21 +6,26 @@ chroot $TEMPMOUNT /bin/bash -c "wget -qO - https://raw.githubusercontent.com/lin
 
 chroot $TEMPMOUNT /bin/bash -c "echo 'deb [arch=amd64] https://pkg.surfacelinux.com/debian release main' > /etc/apt/sources.list.d/linux-surface.list"
 
-chroot $TEMPMOUNT /bin/bash -c "apt update"
+chroot $TEMPMOUNT /bin/bash -c "apt-get update"
 
-chroot $TEMPMOUNT /bin/bash -c "apt install -y linux-image-surface linux-headers-surface && echo '---> apt install linux-image-surface linux-headers-surface succeeded <--------------------------------------------------------------' || { echo 'apt install linux-image-surface linux-headers-surface failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt-get install -y linux-image-surface linux-headers-surface && echo '---> apt install linux-image-surface linux-headers-surface succeeded <--------------------------------------------------------------' || { echo 'apt install linux-image-surface linux-headers-surface failed'; exit 1; }" || exit 1
 
-chroot $TEMPMOUNT /bin/bash -c "apt install -y iptsd libwacom-surface surface-control surface-dtx-daemon && echo '---> apt install iptsd libwacom-surface surface-control surface-dtx-daemon succeeded <--------------------------------------------------------------' || { echo 'apt install iptsd libwacom-surface surface-control surface-dtx-daemon failed'; exit 1; }" || exit 1 
+chroot $TEMPMOUNT /bin/bash -c "apt-get install -y iptsd libwacom-surface surface-control surface-dtx-daemon && echo '---> apt install iptsd libwacom-surface surface-control surface-dtx-daemon succeeded <--------------------------------------------------------------' || { echo 'apt install iptsd libwacom-surface surface-control surface-dtx-daemon failed'; exit 1; }" || exit 1 
 
 
 if [ -n "$SECUREBOOT" ]
 then
 
-	chroot $TEMPMOUNT /bin/bash -c "apt install -y linux-surface-secureboot-mok && echo '---> apt install linux-surface-secureboot-mok succeeded <--------------------------------------------------------------' || { echo 'apt install linux-surface-secureboot-mok failed'; exit 1; }" || exit 1 
+	chroot $TEMPMOUNT /bin/bash -c "apt-get install -y linux-surface-secureboot-mok && echo '---> apt install linux-surface-secureboot-mok succeeded <--------------------------------------------------------------' || { echo 'apt install linux-surface-secureboot-mok failed'; exit 1; }" || exit 1 
 
 fi
 
-cp $CONFIGDIR/surface/NetworkManager.conf $TEMPMOUNT/etc/NetworkManager/
+{
+
+echo '[device]'
+echo 'wifi.scan-rand-mac-address=false'
+
+} >> $TEMPMOUNT/etc/NetworkManager/NetworkManager.conf
 
 mkdir -p $TEMPMOUNT/etc/thermald/
 

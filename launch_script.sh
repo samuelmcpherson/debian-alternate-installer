@@ -994,6 +994,26 @@ then
 
 fi
 
+
+if [ -n "$TOUCHSCREEN" ]
+then
+
+    export CURRENTFUNC="extraConfiguration/packageInstallTouchscreen.sh"
+    export CURRENTARGS=
+
+    if [ -n "$ZFS" ]
+    then
+        zfs snapshot -r zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"
+    fi
+
+    menuFull
+
+    export LASTFUNC=$CURRENTFUNC
+    export LASTARGS=$CURRENTARGS
+
+fi
+
+
 if [ -n "$SURFACE" ]
 then
 
