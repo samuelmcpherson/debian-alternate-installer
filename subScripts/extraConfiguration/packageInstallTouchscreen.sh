@@ -8,7 +8,7 @@ cp $CONFIGDIR/onboard_toggle.sh $TEMPMOUNT/usr/bin/onboard_toggle.sh
 
 chroot $TEMPMOUNT /bin/bash -c "chmod +x /usr/bin/onboard_toggle.sh"
 
-echo >> $TEMPMOUNT/home/$USER/.config/kglobalshortcutsrc
+echo '{d1184627-6521-4558-85f9-480c6ad45fab}=Meta+Alt+Space,none,toggle_onboard' >> $TEMPMOUNT/home/$USER/.config/kglobalshortcutsrc
 
 cp $CONFIGDIR/home/.config/autostart/onboard.desktop $TEMPMOUNT/home/$USER/.config/autostart/onboard.desktop
 
