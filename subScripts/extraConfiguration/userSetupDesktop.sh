@@ -85,6 +85,8 @@ then
     
     fi    
 
+fi
+   
 chroot $TEMPMOUNT /bin/bash -c "chown -R $USER:users /home/$USER"
 
 {
