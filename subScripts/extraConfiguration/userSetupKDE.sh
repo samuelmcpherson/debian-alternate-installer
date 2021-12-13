@@ -108,7 +108,7 @@ then
     echo 'enableSpreadLayout=false'
     echo 'enableStairLayout=false'
     echo 'enableTileLayout=false'
-    echo 'ignoreClass=yakuake,spectacle,conky'
+    echo 'ignoreClass=yakuake,spectacle,conky,onboard'
     echo 'newWindowAsMaster=true'
     } >> $TEMPMOUNT/home/$USER/.config/kwinrc
 
