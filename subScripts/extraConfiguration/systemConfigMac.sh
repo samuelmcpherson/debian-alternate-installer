@@ -30,12 +30,12 @@ chroot $TEMPMOUNT /bin/bash -c "touch /etc/modprobe.d/hid_apple.conf"
 
 if [[ -n "$FNKEYMODESWAP" ]]
 then
-    chroot $TEMPMOUNT /bin/bash -c "'echo options hid_apple fnmode=2' >> /etc/modprobe.d/hid_apple.conf"
+    chroot $TEMPMOUNT /bin/bash -c "echo options hid_apple fnmode=2 >> /etc/modprobe.d/hid_apple.conf"
 fi
 
 if [[ -n "$FNKEYMODESWAP" ]]
 then
-    chroot $TEMPMOUNT /bin/bash -c "'echo options hid_apple swap_opt_cmd=1' >> /etc/modprobe.d/hid_apple.conf"
+    chroot $TEMPMOUNT /bin/bash -c "echo options hid_apple swap_opt_cmd=1 >> /etc/modprobe.d/hid_apple.conf"
 fi
 
 chroot $TEMPMOUNT /bin/bash -c "update-initramfs -c -k all"

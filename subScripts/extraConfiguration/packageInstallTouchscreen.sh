@@ -18,4 +18,18 @@ cp -r $CONFIGDIR/home/touchscreenextras-master/.TouchscreenExtras.cfg $TEMPMOUNT
 
 cp $CONFIGDIR/home/.config/autostart/launch_touchScreenExtras.desktop $TEMPMOUNT/home/$USER/.config/autostart/launch_touchScreenExtras.desktop
 
+if [[ -n "$KDE" ]]
+then 
+    
+    chroot $TEMPMOUNT /bin/bash -c "apt-get install -y qtvirtualkeyboard-plugin"
+    
+    { 
+
+        echo "[General]"
+        echo "InputMethod=qtvirtualkeyboard"
+
+    } >> $TEMPMOUNT/etc/sddm.conf
+
+fi
+
 chroot $TEMPMOUNT /bin/bash -c "chown -R $USER:users /home/$USER"
