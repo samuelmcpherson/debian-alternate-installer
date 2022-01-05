@@ -2,7 +2,7 @@
 
 chroot $TEMPMOUNT /bin/bash -c "apt-get update"
 
-chroot $TEMPMOUNT /bin/bash -c "apt-get -y install xinput wireless-tools x11-apps x11-session-utils notification-daemon mesa-utils alsa-utils avahi-autoipd hspell-gui hspell hunspell hyphen-en-us i2c-tools uim-data uim-fep uim-gtk2.0-immodule uim-gtk2.0 uim-gtk3-immodule uim-gtk3 uim-plugins uim-qt5-immodule uim-qt5 uim-xim uim ubertooth-firmware-source bertooth-firmware ubertooth uim-data task-english"
+chroot $TEMPMOUNT /bin/bash -c "apt-get -y install xinput wireless-tools x11-apps x11-session-utils notification-daemon mesa-utils alsa-utils avahi-autoipd hspell-gui hspell hunspell hyphen-en-us i2c-tools uim-data uim-fep uim-gtk2.0-immodule uim-gtk2.0 uim-gtk3-immodule uim-gtk3 uim-plugins uim-qt5-immodule uim-qt5 uim-xim uim ubertooth-firmware-source bertooth-firmware ubertooth uim-data task-english libvulkan1 mesa-vulkan-drivers vulkan-tools"
 
 
 chroot $TEMPMOUNT /bin/bash -c "apt-get -y install xinput thermald xcape gnome-keyring flatpak xfsprogs wireshark-doc thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon pandoc && echo '---> apt install xinput thermald xcape gnome-keyring flatpak xfsprogs wireshark-doc firefox-esr thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon succeeded <--------------------------------------------------------------' || { echo 'apt install xinput thermald xcape gnome-keyring flatpak xfsprogs wireshark-doc firefox-esr thunderbird libreoffice hunspell conky-all vlc openshot-qt gimp inkscape libudev-dev xdotool libinput-tools libinput-dev calibre audacity gparted pass wireshark profile-sync-daemon failed'; exit 1; }" || exit 1
@@ -55,6 +55,8 @@ chroot $TEMPMOUNT /bin/bash -c "apt-get install -y texlive-base texlive-latex-ba
     echo '#!/bin/bash'
 
     echo 'flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo'
+    
+    echo 'flatpak install -y flathub com.github.tchx84.Flatseal'
     echo 'flatpak install -y flathub app/com.github.eloston.ungoogledchromium/x86_64/stable'
     echo 'flatpak install -y flathub org.mozilla.firefox/x86_64/stable'
     echo 'flatpak install -y flathub com.todoist.todoist'
@@ -63,10 +65,19 @@ chroot $TEMPMOUNT /bin/bash -c "apt-get install -y texlive-base texlive-latex-ba
     echo 'flatpak install -y flathub ch.protonmail.protonmail-bridge'
     echo 'flatpak install -y flathub com.jgraph.drawio.desktop'
     echo 'flatpak install -y flathub com.discordapp.discord'
-    echo 'flatpak install -y flathub com.github.xournalpp.xournalpp'
+    echo 'flatpak install -y flathub com.github.xournalpp.xoxdg-mime default re.sonny.Junction.desktop x-scheme-handler/fileurnalpp'
     echo 'flatpak install -y flathub us.zoom.zoom'
     echo 'flatpak install -y flathub tech.feliciano.pocket-casts'
     echo 'flatpak install -y flathub com.axosoft.gitkraken'
+    echo 'flatpak install -y flathub com.belmoussaoui.Authenticator'
+    echo 'flatpak install -y flathub net.cozic.joplin_desktop'
+    echo 'flatpak install -y flathub com.github.jeromerobert.pdfarranger'
+    echo 'flatpak install -y flathub re.sonny.Junction'
+
+    echo 'xdg-settings set default-web-browser re.sonny.Junction.desktop'
+    echo 'xdg-mime default re.sonny.Junction.desktop x-scheme-handler/file'
+
+
 
 } >> $TEMPMOUNT/home/$USER/flatpaksToInstall.sh
 
