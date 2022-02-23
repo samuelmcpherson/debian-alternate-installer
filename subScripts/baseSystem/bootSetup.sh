@@ -1,54 +1,48 @@
 #!/bin/bash
 
-chroot $TEMPMOUNT /bin/bash -c "cd /root && git clone 'https://github.com/zbm-dev/zfsbootmenu.git'"
-chroot $TEMPMOUNT /bin/bash -c "cd /root/zfsbootmenu && make install"
+if [ -n "$EFI" ]
+then 
 
-chroot $TEMPMOUNT /bin/bash -c "echo yes | cpan 'YAML::PP'"
+    chroot $TEMPMOUNT /bin/bash -c "mkdir -p /boot/efi/EFI/zbm"
+    chroot $TEMPMOUNT /bin/bash -c "touch /boot/efi/EFI/zbm/refind_linux.conf"
+    echo "\"Boot default\"  \"zfsbootmenu:POOL=zroot zbm.import_policy=hostid zbm.set_hostid zbm.timeout=30 ro quiet loglevel=0\"" > $TEMPMOUNT/boot/efi/EFI/zbm/refind_linux.conf
+    echo "\"Boot to menu\"  \"zfsbootmenu:POOL=zroot zbm.import_policy=hostid zbm.set_hostid zbm.show ro quiet loglevel=0\"" >> $TEMPMOUNT/boot/efi/EFI/zbm/refind_linux.conf
 
-chroot $TEMPMOUNT /bin/bash -c "mkdir -p /etc/dracut.conf.d"
-
-chroot $TEMPMOUNT /bin/bash -c "rm /etc/dracut.conf.d/*"
-
-chroot $TEMPMOUNT /bin/bash -c "touch /etc/dracut.conf.d/100-zol.conf"
-{    
-  echo "hostonly=\"no\"" 
-  echo "nofsck=\"yes\"" 
-  echo "add_dracutmodules+=\" zfs \"" 
-  echo "omit_dracutmodules+=\" btrfs \"" 
-  #echo "install_items+=\" /etc/zfs/zroot.key \""
-} > $TEMPMOUNT/etc/dracut.conf.d/100-zol.conf
-
-chroot $TEMPMOUNT /bin/bash -c "mkdir -p /etc/zfsbootmenu"
-chroot $TEMPMOUNT /bin/bash -c "touch /etc/zfsbootmenu/config.yaml"
-{
-  echo "Global:"
-  echo "  ManageImages: true"
-  echo "  BootMountPoint: /boot/efi"
-  echo "  DracutConfDir: /etc/zfsbootmenu/dracut.conf.d"
-  echo "Components:"
-  echo "  ImageDir: /boot/efi/EFI/debian"
-  echo "  Versions: 3"
-  echo "  Enabled: true"
-  echo "  syslinux:"
-  echo "    Config: /boot/syslinux/syslinux.cfg"
-  echo "    Enabled: false"
-  echo "EFI:"
-  echo "  ImageDir: /boot/efi/EFI/debian"
-  echo "  Versions: 2"
-  echo "  Enabled: true"
-  #echo "  Stub: /usr/lib/systemd/boot/efi/linuxx64.efi.stub"
-  echo "Kernel:"
-  echo "  CommandLine: ro quiet loglevel=0"
-} > $TEMPMOUNT/etc/zfsbootmenu/config.yaml
+    cd $TEMPMOUNT/boot/efi/EFI/zbm && wget https://github.com/zbm-dev/zfsbootmenu/releases/download/v1.11.0/zfsbootmenu-x86_64-v1.11.0.EFI
+        
+    chroot $TEMPMOUNT /bin/bash -c "mkdir -p /boot/efi/EFI/debian"
+    chroot $TEMPMOUNT /bin/bash -c "touch /boot/efi/EFI/debian/refind_linux.conf"
+    echo "\"Standard boot\"   \"dozfs=force root=ZFS=zroot/$HOSTNAME/ROOT/default rw\"" > $TEMPMOUNT/boot/efi/EFI/debian/refind_linux.conf
 
 
-chroot $TEMPMOUNT /bin/bash -c "dracut --force --kver $(ls $TEMPMOUNT/lib/modules)"
+    if [ "$EFIPART_2" ]
+    then
+        chroot $TEMPMOUNT /bin/bash -c "/usr/bin/rsync -a /boot/efi/ /boot/efi2"
+    fi
 
-chroot $TEMPMOUNT /bin/bash -c "generate-zbm"
+    chroot $TEMPMOUNT /bin/bash -c "mkdir -p /etc/initramfs/post-update.d"
 
-chroot $TEMPMOUNT /bin/bash -c "refind-install"
+    chroot $TEMPMOUNT /bin/bash -c "touch /etc/initramfs/post-update.d/10-copytoefi"
 
-chroot $TEMPMOUNT /bin/bash -c "mkdir -p /boot/efi/EFI/debian"
-chroot $TEMPMOUNT /bin/bash -c "touch /boot/efi/EFI/debian/refind_linux.conf"
-echo "\"Boot default\"  \"zfsbootmenu:POOL=zroot zbm.import_policy=hostid zbm.set_hostid zbm.timeout=30 ro quiet loglevel=0\"" > $TEMPMOUNT/boot/efi/EFI/debian/refind_linux.conf
-echo "\"Boot to menu\"  \"zfsbootmenu:POOL=zroot zbm.import_policy=hostid zbm.set_hostid zbm.show ro quiet loglevel=0\"" >> $TEMPMOUNT/boot/efi/EFI/debian/refind_linux.conf
+
+    {
+    echo '#!/usr/bin/env bash'
+    
+    echo ''
+    
+    echo 'mount /boot/efi && cp -fv $(realpath /{vmlinuz,initrd.img}) /boot/efi/EFI/debian && umount /boot/efi'
+
+    if [ "$EFIPART_2" ]
+    then
+        echo ''
+        
+        echo "mount /boot/efi2 && cp -fv $(realpath /{vmlinuz,initrd.img}) /boot/efi2/EFI/debian && umount /boot/efi2"
+    fi 
+    } > $TEMPMOUNT/etc/initramfs/post-update.d/10-copytoefi
+
+
+    chroot $TEMPMOUNT /bin/bash -c "chmod +x /etc/initramfs/post-update.d/10-copytoefi"
+
+    chroot $TEMPMOUNT /bin/bash -c "/etc/initramfs/post-update.d/10-copytoefi"
+
+fi

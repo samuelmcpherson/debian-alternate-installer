@@ -4,17 +4,19 @@ chroot $TEMPMOUNT /bin/bash -c "apt -y update"
 
 chroot $TEMPMOUNT /bin/bash -c "apt dist-upgrade -y && echo '---> apt dist-upgrade succeeded <--------------------------------------------------------------' || { echo 'apt dist-upgrade failed'; exit 1; }" || exit 1
 
-chroot $TEMPMOUNT /bin/bash -c "apt install -y dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux && echo '---> apt install dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux succeeded <--------------------------------------------------------------' || { echo 'apt install dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux failed'; exit 1; }" || exit 1
+chroot $TEMPMOUNT /bin/bash -c "apt install -y dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux fwupd intel-microcode amd64-microcode dconf-cli console-setup && echo '---> apt install dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux fwupd intel-microcode amd64-microcode dconf-cli succeeded <--------------------------------------------------------------' || { echo 'apt install dpkg-dev linux-headers-amd64 linux-image-amd64 systemd-sysv firmware-linux fwupd intel-microcode amd64-microcode dconf-cli failed'; exit 1; }" || exit 1
 
 if [ -n "$ZFS" ]
 then
-    chroot $TEMPMOUNT /bin/bash -c "apt install -y zfs-dkms zfsutils-linux zfs-zed dracut-core zfs-dracut kexec-tools libconfig-inifiles-perl libsort-versions-perl libboolean-perl fzf mbuffer spl-dkms && echo '---> apt install zfs-dkms zfsutils-linux zfs-zed dracut-core zfs-dracut kexec-tools kexec-tools libconfig-inifiles-perl libsort-versions-perl libboolean-perl fzf mbuffer succeeded <--------------------------------------------------------------' || { echo 'apt install zfs-dkms zfsutils-linux zfs-zed dracut-core zfs-dracut kexec-tools kexec-tools kexec-tools libconfig-inifiles-perl libsort-versions-perl libboolean-perl fzf mbuffer failed'; exit 1; }" || exit 1
+    chroot $TEMPMOUNT /bin/bash -c "apt install -y zfs-initramfs && echo '---> apt install zfs-initramfs succeeded <--------------------------------------------------------------' || { echo 'apt install zfs-initramfs failed'; exit 1; }" || exit 1
+
+    echo REMAKE_INITRD=yes > $TEMPMOUNT/etc/dkms/zfs.conf
 fi
 
 
 if [ -n "$BIOS" ] 
 then
-    chroot $TEMPMOUNT /bin/bash -c "apt -y install refind && echo '---> apt install refind dracut-network dropbear succeeded <--------------------------------------------------------------' || apt -y install refind dracut-network dropbear failed'; exit 1; }" || exit 1
+    chroot $TEMPMOUNT /bin/bash -c "apt -y install refind && echo '---> apt install refind succeeded <--------------------------------------------------------------' || apt -y install refind failed'; exit 1; }" || exit 1
 elif [ -n "$EFI" ]
 then
     chroot $TEMPMOUNT /bin/bash -c "apt -y install refind efibootmgr && echo '---> apt install refind efibootmgr succeeded <--------------------------------------------------------------' || { echo 'apt install refind efibootmgr failed'; exit 1; }" || exit 1

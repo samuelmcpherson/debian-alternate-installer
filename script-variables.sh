@@ -1,8 +1,12 @@
 #!/bin/bash
 
-### imutable variables
+### Required variables
 
 export SCRIPTDIR=$(pwd)
+
+export TEMPMOUNT=/mnt
+
+
 
 export EFI=yes
 
@@ -12,7 +16,7 @@ export ZFS=yes
 
 export MIRROR=
 
-export ZFSPART= 
+export ZFSPART=
 
 export EFIPART=
 
@@ -20,7 +24,11 @@ export DISK1=
 
 export DISK2=
 
-export TEMPMOUNT=/mnt
+
+
+
+
+export HOSTNAME=
 
 export HOSTNAME=
 
@@ -51,7 +59,7 @@ export NETDEVICE=
 
     export NETMASK=24
 
-    export GATEWAY=192.168.10.1
+    export GATEWAY=
 
 export RELEASE=bullseye
 

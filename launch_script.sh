@@ -517,12 +517,11 @@ mkdir -p $LOGDIR
 
 {
 echo "deb http://deb.debian.org/debian $RELEASE main contrib non-free"
-#echo "deb http://deb.debian.org/debian $RELEASE-backports main contrib non-free"
 } > /etc/apt/sources.list
 
 apt update
 
-apt install -y efibootmgr dosfstools debootstrap gdisk dkms dpkg-dev linux-headers-$(uname -r)
+apt install -y efibootmgr dosfstools debootstrap gdisk dkms dpkg-dev linux-headers-"$(uname -r)"
 
 apt install -y --no-install-recommends zfs-dkms
 
@@ -769,29 +768,11 @@ menuFull
 export LASTFUNC=$CURRENTFUNC
 export LASTARGS=$CURRENTARGS
 
-
-if [ -n "$MIRROR" ] && [ -n "$EFI" ]
-then
-
-    export CURRENTFUNC="baseSystem/syncEFIs.sh"
-    export CURRENTARGS=
-    
-    if [ -n "$ZFS" ]
-    then
-    zfs snapshot -r zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"
-    fi
-    
-    menuFull
-    
-    export LASTFUNC=$CURRENTFUNC
-    export LASTARGS=$CURRENTARGS
-
-fi
-
 if [ -n "$ZFS" ]
     then
     zfs snapshot -r zroot@base-install
 fi
+
 
 echo '#########################################################################################'
 echo '#########################################################################################'
@@ -978,6 +959,44 @@ if [ -n "$MAC" ]
 then
 
     export CURRENTFUNC="extraConfiguration/systemConfigMac.sh"
+    export CURRENTARGS=
+
+    if [ -n "$ZFS" ]
+    then
+        zfs snapshot -r zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"
+    fi
+
+    menuFull
+
+    export LASTFUNC=$CURRENTFUNC
+    export LASTARGS=$CURRENTARGS
+
+fi
+
+
+if [ -n "$TOUCHSCREEN" ]
+then
+
+    export CURRENTFUNC="extraConfiguration/packageInstallTouchscreen.sh"
+    export CURRENTARGS=
+
+    if [ -n "$ZFS" ]
+    then
+        zfs snapshot -r zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"
+    fi
+
+    menuFull
+
+    export LASTFUNC=$CURRENTFUNC
+    export LASTARGS=$CURRENTARGS
+
+fi
+
+
+if [ -n "$SURFACE" ]
+then
+
+    export CURRENTFUNC="extraConfiguration/packageInstallSurface.sh"
     export CURRENTARGS=
 
     if [ -n "$ZFS" ]

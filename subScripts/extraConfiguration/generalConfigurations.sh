@@ -2,6 +2,29 @@
 
 cd $TEMPMOUNT/home/$USER && git clone $CONFIGREPO
 
+
+if [ -n "$EFI" ]
+then 
+
+    if [ -n "$SURFACE" ]
+    then
+        rm -r $TEMPMOUNT/boot/efi/EFI/zbm
+        cp -r $CONFIGDIR/boot/efi/EFI/debian-surface $TEMPMOUNT/boot/efi/EFI/zbm
+
+    elif [ -n "$MAC" ]
+    then
+        rm -r $TEMPMOUNT/boot/efi/EFI/zbm
+        cp -r $CONFIGDIR/boot/efi/EFI/debian-mac $TEMPMOUNT/boot/efi/EFI/zbm
+
+    elif [ -n "$THINKPAD" ]
+    then
+        rm -r $TEMPMOUNT/boot/efi/EFI/zbm
+        cp -r $CONFIGDIR/boot/efi/EFI/debian-thinkpad $TEMPMOUNT/boot/efi/EFI/zbm
+
+    else
+        echo "No zbm initramfs and kernel for this hardware, leaving default release in place."
+
+fi
 cp $CONFIGDIR/etc/ssh/ssh_config $TEMPMOUNT/etc/ssh/ssh_config
 
 cp $CONFIGDIR/etc/ssh/sshd_config $TEMPMOUNT/etc/ssh/sshd_config
@@ -54,4 +77,4 @@ then
     chroot $TEMPMOUNT /bin/bash -c "chown -R $USER:users /home/$USER"
 fi
 
-sed -i 's/PATH="\/usr\/local\/bin:\/usr\/bin:\/bin:\/usr\/games"/PATH="\/usr\/local\/sbin:\/usr\/local\/bin:\/usr\/sbin:\/usr\/bin:\/sbin:\/bin"/g' $TEMPMOUNT/etc/zsh/zshenv
+sed -i 's/PATH="\/usr\/local\/bin:\/usr\/bin:\/bin:\/usr\/games"/PATH="\/usr\/local\/sbin:\/usr\/local\/bin:\/usr\/sbin:\/usr\/bin:\/sbin:\/bin:\/usr\/games"/g' $TEMPMOUNT/etc/zsh/zshenv
