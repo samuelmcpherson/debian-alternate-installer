@@ -517,7 +517,6 @@ mkdir -p $LOGDIR
 
 {
 echo "deb http://deb.debian.org/debian $RELEASE main contrib non-free"
-#echo "deb http://deb.debian.org/debian $RELEASE-backports main contrib non-free"
 } > /etc/apt/sources.list
 
 apt update
