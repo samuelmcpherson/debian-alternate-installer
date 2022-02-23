@@ -756,6 +756,25 @@ export LASTFUNC=$CURRENTFUNC
 export LASTARGS=$CURRENTARGS
 
 
+export CURRENTFUNC="baseSystem/bootSetup.sh"
+export CURRENTARGS=
+
+if [ -n "$ZFS" ]
+then
+zfs snapshot -r zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"
+fi
+
+menuFull
+
+export LASTFUNC=$CURRENTFUNC
+export LASTARGS=$CURRENTARGS
+
+if [ -n "$ZFS" ]
+    then
+    zfs snapshot -r zroot@base-install
+fi
+
+
 echo '#########################################################################################'
 echo '#########################################################################################'
 echo 'Minimal base system has been successfully installed, now performing extra configurations'
@@ -808,45 +827,6 @@ menuFull
 
 export LASTFUNC=$CURRENTFUNC
 export LASTARGS=$CURRENTARGS
-
-
-
-export CURRENTFUNC="baseSystem/bootSetup.sh"
-export CURRENTARGS=
-
-if [ -n "$ZFS" ]
-then
-zfs snapshot -r zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"
-fi
-
-menuFull
-
-export LASTFUNC=$CURRENTFUNC
-export LASTARGS=$CURRENTARGS
-
-
-if [ -n "$MIRROR" ] && [ -n "$EFI" ]
-then
-
-    export CURRENTFUNC="baseSystem/syncEFIs.sh"
-    export CURRENTARGS=
-    
-    if [ -n "$ZFS" ]
-    then
-    zfs snapshot -r zroot@"$(echo $CURRENTFUNC | cut -d '/' -f2)"
-    fi
-    
-    menuFull
-    
-    export LASTFUNC=$CURRENTFUNC
-    export LASTARGS=$CURRENTARGS
-
-fi
-
-if [ -n "$ZFS" ]
-    then
-    zfs snapshot -r zroot@base-install
-fi
 
 
 if [ -n "$ANSIBLE" ]

@@ -1,8 +1,12 @@
 #!/bin/bash
 
-### imutable variables
+### Required variables
 
 export SCRIPTDIR=$(pwd)
+
+export TEMPMOUNT=/mnt
+
+
 
 export EFI=yes
 
@@ -20,7 +24,9 @@ export DISK1=
 
 export DISK2=
 
-export TEMPMOUNT=/mnt
+
+
+
 
 export HOSTNAME=
 
