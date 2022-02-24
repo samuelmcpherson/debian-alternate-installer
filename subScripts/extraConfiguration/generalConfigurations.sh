@@ -23,8 +23,11 @@ then
 
     else
         echo "No zbm initramfs and kernel for this hardware, leaving default release in place."
+    
+    fi
 
 fi
+
 cp $CONFIGDIR/etc/ssh/ssh_config $TEMPMOUNT/etc/ssh/ssh_config
 
 cp $CONFIGDIR/etc/ssh/sshd_config $TEMPMOUNT/etc/ssh/sshd_config
@@ -78,3 +81,5 @@ then
 fi
 
 sed -i 's/PATH="\/usr\/local\/bin:\/usr\/bin:\/bin:\/usr\/games"/PATH="\/usr\/local\/sbin:\/usr\/local\/bin:\/usr\/sbin:\/usr\/bin:\/sbin:\/bin:\/usr\/games"/g' $TEMPMOUNT/etc/zsh/zshenv
+
+sed -i '/^if\|^then\|^fi/d' $TEMPMOUNT/etc/zsh/zshenv

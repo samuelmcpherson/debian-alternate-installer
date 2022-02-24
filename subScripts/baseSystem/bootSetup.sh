@@ -14,6 +14,9 @@ then
     chroot $TEMPMOUNT /bin/bash -c "touch /boot/efi/EFI/debian/refind_linux.conf"
     echo "\"Standard boot\"   \"dozfs=force root=ZFS=zroot/$HOSTNAME/ROOT/default rw\"" > $TEMPMOUNT/boot/efi/EFI/debian/refind_linux.conf
 
+    chroot $TEMPMOUNT /bin/bash -c "cp /boot/vmlinuz-* /boot/efi/EFI/debian"
+
+    chroot $TEMPMOUNT /bin/bash -c "cp /boot/initrd.img-* /boot/efi/EFI/debian"
 
     if [ "$EFIPART_2" ]
     then
@@ -41,8 +44,7 @@ then
     } > $TEMPMOUNT/etc/initramfs/post-update.d/10-copytoefi
 
 
-chroot $TEMPMOUNT /bin/bash -c "chmod +x /etc/initramfs/post-update.d/10-copytoefi"
+    chroot $TEMPMOUNT /bin/bash -c "chmod +x /etc/initramfs/post-update.d/10-copytoefi"
 
-chroot $TEMPMOUNT /bin/bash -c "/etc/initramfs/post-update.d/10-copytoefi"
 
 fi

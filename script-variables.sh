@@ -26,8 +26,6 @@ export DISK2=
 
 
 
-
-
 export HOSTNAME=
 
 export LOGDIR="/logs/$HOSTNAME"
