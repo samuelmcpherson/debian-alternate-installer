@@ -14,6 +14,6 @@ chroot $TEMPMOUNT /bin/bash -c "echo 'ansible ALL=(ALL) NOPASSWD: ALL' >> /etc/s
 
 chroot $TEMPMOUNT /bin/bash -c "mkdir -p /home/ansible/.ssh" 
 
-cp $CONFIGDIR/home/.ssh/ansible/authorized_keys $TEMPMOUNT/home/ansible/.ssh/
+cp $CONFIGDIR/home/ansible/.ssh/authorized_keys $TEMPMOUNT/home/ansible/.ssh/authorized_keys
 
 chroot $TEMPMOUNT /bin/bash -c "chown -R ansible:ansible /home/ansible"
