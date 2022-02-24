@@ -81,3 +81,5 @@ then
 fi
 
 sed -i 's/PATH="\/usr\/local\/bin:\/usr\/bin:\/bin:\/usr\/games"/PATH="\/usr\/local\/sbin:\/usr\/local\/bin:\/usr\/sbin:\/usr\/bin:\/sbin:\/bin:\/usr\/games"/g' $TEMPMOUNT/etc/zsh/zshenv
+
+sed -i '/^if\|^then\|^fi/d' $TEMPMOUNT/etc/zsh/zshenv
