@@ -23,8 +23,11 @@ then
 
     else
         echo "No zbm initramfs and kernel for this hardware, leaving default release in place."
+    
+    fi
 
 fi
+
 cp $CONFIGDIR/etc/ssh/ssh_config $TEMPMOUNT/etc/ssh/ssh_config
 
 cp $CONFIGDIR/etc/ssh/sshd_config $TEMPMOUNT/etc/ssh/sshd_config
