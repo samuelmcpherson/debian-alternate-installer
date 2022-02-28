@@ -2,7 +2,7 @@
 
 umount -Rl $TEMPMOUNT
 
-if [ -n "$ZFS" ] && [ -n "$EFI" ] && [ -z "$BIOS" ]
+if [ -n "$ZFS" ]
 then
 
     zpool export zroot
@@ -27,23 +27,9 @@ then
 
     fi
 
-elif [ -n "$ZFS" ] && [ -z "$EFI" ] && [ -n "$BIOS" ] 
-then
-
-    zpool export zroot
-
-    zpool import -N -R $TEMPMOUNT zroot
-
-    zfs mount zroot/"$HOSTNAME"/ROOT/default && echo "---> mounted ZFS boot environment successfully <--------------------------------------------------------------" || { echo "failed to mount ZFS boot environment"; exit 1; }
-    
-
-    zfs mount -a && echo "---> mounted all ZFS datasets successfully <--------------------------------------------------------------" || { echo "failed to mount all ZFS datasets"; exit 1; }
-
+    echo /dev/zvol/zroot/swap none swap defaults 0 0 > $TEMPMOUNT/etc/fstab
 
 fi
-
-
-echo /dev/zvol/zroot/swap none swap defaults 0 0 > $TEMPMOUNT/etc/fstab
 
 MOUNT=1
 
